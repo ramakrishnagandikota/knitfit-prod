@@ -86,7 +86,7 @@
 			@foreach($measurements as $ms)
 				
 
-                <div class="col-lg-6 col-xl-2 col-md-6" id="id_{{base64_encode($ms->id)}}">
+                <div class="col-lg-6 col-xl-2 col-md-6 measurementbox" id="id_{{base64_encode($ms->id)}}">
                     <div class="card rounded-card custom-card overlay-card">
                         <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
                     
@@ -176,26 +176,38 @@
 
 <script type="text/javascript">
 	$(function(){
-		swal('Good Job','ddd','success');
+
+
 
 		$(document).on('click','.getId',function(){
+
 			var id = $(this).attr('data-id');
 			$(".delete-card").attr('data-id',id);
 		});
 
 		$(document).on('click','.delete-card',function(){
 			var id = $(this).attr('data-id');
+			
 			if(id != 0){
 				$.get( "measurements/delete/"+id, function( data ) {
 					if(data == 0){
 						$("#id_"+id).remove();
+						Swal.fire(
+		                  'Great!',
+		                  'Measurement set removed successfully.',
+		                  'success'
+		                )
 					}else{
 
 					}
 				  
 				});
 			}else{
-				alert('Unable to delete.Please refresh the page and try again');
+				Swal.fire(
+                  'Oops!',
+                  'Unable to delete.Please refresh the page and try again',
+                  'fail'
+                )
 			}
 			
 		});

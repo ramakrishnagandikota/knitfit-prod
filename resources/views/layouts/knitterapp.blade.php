@@ -288,8 +288,8 @@
 <script src="{{ asset('resources/assets/files/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- Custom js -->
 <script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
-<script type="text/javascript" src="{{asset('node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('resources/assets/assets/js/promise-polyfill.js')}}"></script>
+<script type="text/javascript" src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+
 @yield('footerscript')
 </body>
 
