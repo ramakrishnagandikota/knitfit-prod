@@ -33,7 +33,7 @@ $(document).ready(function(){
         limit: null,
         maxSize: null,
         extensions: null,
-         changeInput: "<i id='upload-icon' class='icofont icofont-image text-muted'></i>",
+         changeInput: "<i id='upload-icon' data-toggle='tooltip' title='Share Photos' class='icofont icofont-image text-muted'></i>",
         showThumbs: true,
         theme: "dragdropbox",
         templates: {

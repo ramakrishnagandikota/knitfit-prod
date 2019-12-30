@@ -107,11 +107,9 @@ class KnitterMeasurementController extends Controller
         $me = UserMeasurements::find($id);
         $del = $me->delete();
         if($del){
-            Session::flash('message','Measurement profile deleted successfully');
-            return redirect()->back();
+            return 0;
         }else{
-            Session::flash('message','Problem in deletion.Try again after some time.');
-            return redirect()->back();
+            return 1;
         }
     }
 }
