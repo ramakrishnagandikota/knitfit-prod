@@ -198,7 +198,11 @@
 		                  'success'
 		                )
 					}else{
-
+						Swal.fire(
+		                  'Oops!',
+		                  'Unable to remove Measurement set',
+		                  'fail'
+		                )
 					}
 				  
 				});
