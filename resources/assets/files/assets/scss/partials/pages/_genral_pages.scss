@@ -515,9 +515,9 @@ a.mytooltip {
 ==========================  **/
 .jFiler-theme-default {
     .jFiler-input-button {
-        background-color: $primary-color;
-        background-image: none;
-        color: #fff;
+        background-color: #0d665c;
+        color: #0d665c;
+        background-color: transparent;
     }
 
     .jFiler-input {
@@ -543,10 +543,10 @@ a.mytooltip {
 }
 
 .jFiler-input-choose-btn {
-    border: 1px solid $primary-color;
+    border: 1px solid #0d665c;
     padding: 10px 25px;
-    background: $primary-color;
-    color: #fff !important;
+    background:transparent;
+    color: #0d665c;
 
     &:hover {
         background: #fff;

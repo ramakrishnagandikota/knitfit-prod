@@ -2944,8 +2944,10 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
 
 .header-navbar .navbar-wrapper .navbar-container .nav-right .user-profile img {
     margin-right: 10px;
-    width: 40px
+    width: 40px;
+    height: 40px;
 }
+.post-profile img {height: 48px;  width: 48px;}
 
 .header-navbar .navbar-wrapper .navbar-container .nav-right .user-profile i {
     font-size: 10px;
@@ -4387,7 +4389,7 @@ table tbody .border-bottom-info td, table tbody .border-bottom-info th, table th
 }
 
 body[themebg-pattern="theme1"] {
-    /* background-color: #4680ff */
+ background-color:#faf9f8;
 }
 
 body[themebg-pattern="theme2"] {
@@ -8948,9 +8950,9 @@ body.horizontal-icon .pcoded[pcoded-device-type="desktop"] .pcoded-navbar .pcode
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-    background-color: #448aff;
+    /* background-color: #448aff;
     color: #fff;
-    padding: 8px 30px 8px 20px
+    padding: 8px 30px 8px 20px */
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
@@ -9897,7 +9899,8 @@ table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.st
 }
 
 .dataTable.table td, .dataTable.table th {
-    padding: 0.75rem
+    padding: 0.75rem;
+    text-align: center;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
@@ -11077,7 +11080,7 @@ thead {
 /* Search Result Page CSS Start*/
 
 .card-block{
-    margin-top: 15px;
+    margin-top: 0px;
 }
 
 .card-header-detail{
@@ -11162,12 +11165,12 @@ thead {
 #location-icon{position: absolute;left: 33px;margin-left: 8px;margin-top: 4px;bottom: 20px}
 #tag-icon{position: absolute;left: 63px;margin-left: 8px;margin-top: 4px;bottom: 20px}
 .post-new-footer i{margin-left: 14px;margin-right: 0px !important;}
-label,.card-header-img h4,.card-header-img h6{color: #6f6f6f !important;font-family: "Segoe UI Symbol";}
+label,.card-header-img h4,.card-header-img h6{color: #6f6f6f;font-family: "Segoe UI Symbol";}
 .badge-top-right {margin-left: -6px !important; top: -8px !important;color: black !important;}
 .icofont-heart{color: indianred;}
 .icofont-ui-message{color: cadetblue;}
 .card .img-hover{padding-top: 10px;}
-.img-hover img{height:auto;width: 200px !important;}
+.img-hover img{height:200px !important;width: 200px !important;}
 .custom-label{font-size: 12px;}
 .ti-location-pin{color: #0db10d;margin-right: 4px;}
 .accordion{cursor: pointer;}
@@ -11191,7 +11194,7 @@ margin: 4px;
   }
   
   a {
-    color: #fff;
+    color: #000000;
   }
   
   .level-dropdown dd,
@@ -11586,6 +11589,7 @@ button:focus{outline: none !important}
     pointer-events: auto;
 }
 .tablike-bt-outlined{font-size: 14px; padding: 4px 14px; cursor: pointer; border-radius: 4px;border: 1px solid #0d665c;color: #0d665c;}
+.tablike-bt-outlined:hover{border: 1px solid #0d665c;background-color: #0d665c;color: white;}
 .tablike-bt-fill{font-size: 14px; padding: 4px 14px; cursor: pointer; border-radius: 4px;border: 1px solid #0d665c;color: white;background-color: #0d665c}
 .tabber a:hover{font-size: 14px; padding: 4px 14px; cursor: pointer; border-radius: 4px;border: 1px solid #0d665c;color: white;background-color: #0d665c}
 .tabber a:focus{font-size: 14px; padding: 4px 14px; cursor: pointer; border-radius: 4px;border: 1px solid #0d665c;color: black;}
@@ -11596,16 +11600,16 @@ button:focus{outline: none !important}
 /*#sortable3 .card-sub{background-color: #E0F5EE;}*/
 #sortable1 .un-generated:after
 {
-  content: "Un-generated";
+  content: "Not generated";
    color: #ffffff;
    background-color: #ff6161;
    border-radius: 4px;
-   padding: 2px;
+   padding: 1px;
    position: absolute;
-   top: 2px;
+   bottom: 20px;
    float: right;
-   right: 24px;
-   font-size: 11px
+   right: 65px;
+   font-size: 11px;
 }
 #sortable1 .card-sub:before {
     content: "\2691";
@@ -11654,7 +11658,7 @@ button:focus{outline: none !important}
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: red; 
+  background: #0d665c; 
 }
 .close-commentbox{cursor: pointer;padding: 4px;margin-left: -22px; background: white;border-top-left-radius: 8px;border-bottom-left-radius: 8px}
 .easyimage{width: 100% !important;}
@@ -11741,3 +11745,40 @@ position: absolute;
 .social-menu li{display: inline-block;margin-left: 36px;font-size: 16px;font-weight: 500;color: #0d665b;cursor: pointer;}
 .social-menu li a{color: #0d665b;border-bottom: 3px solid transparent;}
 .social-menu li a:hover{cursor: pointer;border-bottom: 3px solid #0d665b;}
+#tagging{margin-left: 34px;}
+.page-item.active .page-link{background-color: #0d665b !important;border-color: #0d665b !important;color: white !important;}
+.page-link {color: #0d665b !important;}
+#basic-btn td .fa{margin: 2px;cursor: pointer;}
+#basic-btn_filter{text-align: right;}
+.dt-theme-btn{background-color: #0d665b;color:white;padding: 4px 6px;margin-top: 4px;}
+.footer-block-buttons-left{position: fixed;bottom: 0px;width: 50%;}
+.footer-block-buttons-right{position: fixed;bottom: 0px;width: 50%;float: right;right: 0;}
+#customer-count{font-weight: 700;}
+.done{font-size: 40px !important;color: green;}
+.custom-social-google{background-color: transparent;border: 1px solid #868e96;color: grey;padding-left: 25px;padding-right: 25px;border-radius: 20px;}
+.custom-social-google:hover{background-color: #DD4B39;border: 1px solid #DD4B39;color: white;padding-left: 25px;padding-right: 25px;border-radius: 20px;}
+.custom-social-facebook{background-color: transparent;border: 1px solid #868e96;color: #868e96;padding-left: 20px;padding-right: 20px;border-radius: 20px;}
+.custom-social-facebook:hover{background-color: #3b5998;border: 1px solid #3b5998;color: white;padding-left: 20px;padding-right: 20px;border-radius: 20px;}
+.custom-chkbox{height: 16px !important;width: 16px!important;}
+.micro-label{font-size: 12px;line-height: 12px!important;margin-bottom: 0rem;}
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+.container{
+  padding-top:50px;
+  margin: auto;
+}
+.custom-padding{padding: 2.0rem !important;}
+.styled-list{list-style-type:disc}
+.text-divider{margin: 2em 0; line-height: 0; text-align: center;}
+.text-divider span{background-color: #f5f5f5; padding: 1em;}
+.text-divider:before{ content: " "; display: block; border-top: 1px solid #e3e3e3; border-bottom: 1px solid #f7f7f7;}
+.li-nopadding{padding: 0 !important;}
+.li-nopadding a{text-decoration: underline;}
+.li-nopadding:hover{background-color: white !important;}
+.li-nopadding a:hover{text-decoration: underline;background-color: white !important;color: #0d665b !important;}

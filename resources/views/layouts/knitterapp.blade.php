@@ -36,6 +36,7 @@
     <!-- Style')}} -->
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/css/pages.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.css')}}">
 <style>
 .img-radius{border-radius: 5px !important}
 </style>
@@ -287,6 +288,7 @@
 <script src="{{ asset('resources/assets/files/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- Custom js -->
 <script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
+<script type="text/javascript" src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 
 @yield('footerscript')
 </body>

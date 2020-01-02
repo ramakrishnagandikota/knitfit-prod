@@ -97,8 +97,8 @@
     });
     $(".ul.droptrue").disableSelection();
 
-    $("#sortable1, #sortable2,#sortable3").disableSelection();
-    $("#sortable1, #sortable2,#sortable3").css('minHeight', $("#sortable1,#sortable2,#sortable3").height() + "px");
+    $("#sortable1, #sortable2,#sortable3,#sortable4").disableSelection();
+    $("#sortable1, #sortable2,#sortable3,#sortable4").css('minHeight', $("#sortable1,#sortable2,#sortable3,#sortable4").height() + "px");
   //  updatePostOrder();
 });
 
