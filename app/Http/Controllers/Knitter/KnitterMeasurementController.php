@@ -23,6 +23,11 @@ class KnitterMeasurementController extends Controller
         $this->middleware('auth');
     }
 
+    function load_measurements(){
+        $measurements = User::find(Auth::user()->id)->measurements->take(4);
+        return view('knitter.measurements.load-measurements',compact('measurements'));
+    }
+
     function get_my_measurements(){
         $meas = User::find(Auth::user()->id)->measurements;
         return view('knitter.measurements.measurements',compact('meas'));

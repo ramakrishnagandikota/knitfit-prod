@@ -41,7 +41,7 @@
 						</li>
 						<li>
 							<figure>
-								<a href="#"> <img class="dashboard-icons" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Measurement.png')}}" /></a>
+								<a href="{{url('knitter/measurements')}}"> <img class="dashboard-icons" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Measurement.png')}}" /></a>
 								<figcaption class="text-muted">Measurement</figcaption>
 							</figure>
 						</li>
@@ -80,61 +80,9 @@
 				</div>
 			</div>
 
-			@if($measurements->count() > 0)
-			
-			<div class="row users-card">
-			@foreach($measurements as $ms)
-				
-
-                <div class="col-lg-6 col-xl-2 col-md-6 measurementbox" id="id_{{base64_encode($ms->id)}}">
-                    <div class="card rounded-card custom-card overlay-card">
-                        <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
-                    
-                        <div class="user-content text-left">
-                            <h4 class="m-l-10 text-center"> <a href="{{url('measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h4>
-                            
-                            <!-- <p class="m-b-0 text-muted">The Boyfriend Sweater is a true classic,it is extremely comfortable and not at all fussy!</p> -->
-                            <div class="editable-items">
-	                            <i class="fa fa-pencil"></i>
-	                            <i class="fa fa-trash getId" data-id="{{base64_encode($ms->id)}}" data-toggle="modal" data-dismiss="modal" data-target="#child-Modal"></i>
-                        	</div>
-                        </div>
-                      
-                    </div>
-                </div>		
-			@endforeach
-
+		<div id="load-measurements">
+			<h4 class="text-center">Unable to get the measurements <a href='javascript:;' onclick="load_measurements()">Click Here</a> to load the data</h4>
 		</div>
-@else
-			<div class="row">
-			<!-- round card start -->
-
-		<div class="col-lg-12 col-xl-12 col-md-9">
-            <div class="card custom-card skew-card">
-                <div class="row">
-                    <div class="col-lg-6">
-                    	<h3 class="m-l-20 m-t-10 text-muted"></h3>
-                    </div>
-                    <div class="col-lg-6">
-                    	<a href="#" >  
-                    		<button class="btn waves-effect m-t-10 m-r-20 pull-right waves-light btn-primary theme-outline-btn" ><i class="icofont icofont-plus"></i>Create Measurement</button>
-                    	</a>
-                    </div>
-                </div>
-                    <div class="user-content card-bg m-l-40 m-r-40 m-b-40">
-                            <img src="{{asset('resources/assets/files/assets/images/arrow.png') }}" id="arrow-img"> 
-                        <h3 class="m-t-40 text-muted">Let's Make Your First Measurement !</h3>
-                        <h4 class="text-muted m-t-10 m-b-30">A better way to manage your Measurement<br>
-                        awaits you right here....</h4>
-                  	</div>
-                
-            </div>
-        </div>				
-
-			<!-- Round card end -->
-		</div>
-
-		@endif
 	</div>
 	<!-- Page-body end -->
 </div>
@@ -177,6 +125,8 @@
 <script type="text/javascript">
 	$(function(){
 
+load_measurements();
+
 
 
 		$(document).on('click','.getId',function(){
@@ -216,5 +166,65 @@
 			
 		});
 	});
+
+
+	function notify(icon,status,msg){
+		$.notify({
+            icon: 'fa '+icon,
+            title: status+'!',
+            message: msg
+        },{
+            element: 'body',
+            position: null,
+            type: "info",
+            allow_dismiss: true,
+            newest_on_top: false,
+            showProgressbar: true,
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 10000,
+            delay: 3000,
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            icon_type: 'class',
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+            '<span data-notify="icon"></span> ' +
+            '<span data-notify="title">{1}</span> ' +
+            '<span data-notify="message">{2}</span>' +
+            '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+            '</div>' +
+            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+            '</div>'
+        });
+	}
+
+	function load_measurements(){
+		try {
+
+			$.ajax({
+			    url: "{{url('knitter/load-measurements')}}",
+			    type: 'GET',
+			    success: function(data){ 
+			        $("#load-measurements").html(data);
+			    },
+			    error: function(data) {
+			        //alert('woops!'); //or whatever
+			        notify('fa-times','Error','Your data could not be loaded.Please try again after some time.')
+			    }
+			});
+		  
+		}catch(err) {
+			//alert(err);
+		  $("#load-measurements").html("Unable to get the measurements <a href='javascript:;' >Click Here</a> to load the data");
+		}
+	}
 </script>
 @endsection

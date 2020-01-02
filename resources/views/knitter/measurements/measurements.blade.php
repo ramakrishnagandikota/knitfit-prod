@@ -48,6 +48,21 @@
                 </div>
             </div>
             @endforeach
+
+            @else
+
+            <div class="col-lg-12 col-xl-12 col-md-9">
+            <div class="card custom-card skew-card">
+                    <div class="user-content card-bg m-l-40 m-r-40 m-b-40">
+                            <img src="{{asset('resources/assets/files/assets/images/arrow.png') }}" id="arrow-img"> 
+                        <h3 class="m-t-40 text-muted">Let's Make Your First Measurement !</h3>
+                        <h4 class="text-muted m-t-10 m-b-30">A better way to manage your Measurement<br>
+                        awaits you right here....</h4>
+                    </div>
+                
+            </div>
+        </div>
+
             @endif
                                                 
                                     <!-- Round card end -->
@@ -102,40 +117,10 @@
          <span class="measurement_name"></span>
       </div>
     </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Description</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" name="description" id="description"
-        placeholder="Description">
-         <span class="description"></span>
-      </div>
-    </div>
+    
     <input type="hidden" name="image1" value="" id="imageurl">
       </form>
-      <div class="form-group row">
-        <div class="col-lg-12">
-          <!-- Upload  -->
-          <label class="col-sm-12 col-form-label text-center">Upload an Image for this Measurement Set</label>
-            <form role="form" id="file-upload-form" method="post" enctype="multipart/form-data">
-              <input id="file-upload" class="file-upload-form" type="file" name="file" accept="image/*" />
-              <label for="file-upload" id="file-drag">
-               <img id="file-image" alt="Preview" style="width: 100px;height: 100px;" class="hidden">
-                <div id="start">
-                <i class="fa fa-download" aria-hidden="true"></i>
-                <div>Select a file or drag here</div>
-                <p></p>
-                <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
-                </div>
-                <div id="response" class="hidden">
-                <div id="messages"></div>
-                <progress class="progress" id="file-progress" value="0">
-                  <span>0</span>%
-                </progress>
-                </div>
-              </label>
-        
-                                
-        </div>
+      
         </form>
     </div>
     <div class="modal-footer">
@@ -207,8 +192,6 @@
       }
     }); 
         var measurement_name = $("#measurement_name").val();
-        var description = $("#description").val();
-        var img = $('input[name="image"]:checked').val();
     
         var er = [];
         var cnt = 0;
@@ -220,30 +203,23 @@
             $(".measurement_name").css('color','').html('');
         }
     
-    if(img == ""){
-            $(".image1").css('color','red').html('Please choose one from below.');
-            er+=cnt+1;
-        }else{
-            $(".image1").css('color','').html('');
-        }
-        
-        if(description == ""){
-            $(".description").css('color','red').html('Please enter measurement description.');
-            er+=cnt+1;
-        }else{
-            $(".description").css('color','').html('');
-        }
+
         
         
         if(er != 0){
             return false;
         }
+
+        //var name = localStorage.getItem('measurement_name');
+        //alert(name);
+
+        localStorage.setItem('measurement_name','');
         
         
-        var Data = $("#insert-measurements").serializeArray();
+     /*   var Data = $("#insert-measurements").serializeArray();
     ////alert(JSON.stringify(Data))
         $.ajax({
-          url : '{{ url("knitter/create-measurements") }}',
+          url : 'url("knitter/create-measurements")',
           type : 'POST',
           data : Data,
           beforeSend : function(){
@@ -252,7 +228,7 @@
           success : function(res){
         //alert(res)
             if(res.status == 'success'){
-              window.location.assign('{{ url("knitter/measurements/edit") }}'+'/'+res.id);
+              window.location.assign(' url("knitter/measurements/edit")'+'/'+res.id);
             }else{
               alert('unable to upload measurement.Try again later.');
             }
@@ -260,7 +236,7 @@
           complete : function(){
 
           }
-        });
+        }); */
     });
 
   });

@@ -290,6 +290,12 @@
 <script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
 <script type="text/javascript" src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 
+
+<!-- Bootstrap Notification js-->
+<script src="{{ asset('resources/assets/assets/js/bootstrap-notify.min.js') }}"></script>
+
+
+
 @yield('footerscript')
 </body>
 
