@@ -44,10 +44,10 @@ class Logincontroller extends Controller
                     return redirect('knitter/dashboard');
                     //return redirect()->back();
                 }else if(Auth::user()->hasRole('Designer')){
-                    return redirect('/home');
+                    return redirect('/');
                     //return redirect()->back();
                 }else{
-                    return redirect('/home');
+                    return redirect('/');
                 }
             
             }else{
@@ -110,7 +110,7 @@ class Logincontroller extends Controller
             $dd = DB::table('user_role')->insert($arr);
 
             $arr = array('user_id' => $user->id);
-            $ii = DB::table('user_measurements')->insert($arr);
+            //$ii = DB::table('user_measurements')->insert($arr);
             $up = DB::table('user_profile')->insert($arr);
 
 

@@ -52,7 +52,7 @@ class FacebookController extends Controller
             $dd = DB::table('user_role')->insert($arr);
 
             $arr = array('user_id' => $appuser->id);
-            $ii = DB::table('user_measurements')->insert($arr);
+            //$ii = DB::table('user_measurements')->insert($arr);
             $up = DB::table('user_profile')->insert($arr);
             
             $users = User::where('email',$socialuser->getEmail())->first();

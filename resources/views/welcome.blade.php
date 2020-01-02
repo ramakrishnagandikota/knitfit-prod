@@ -72,6 +72,22 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#">User Guide</a>
           </li>
+          @if(Auth::check())
+          @if(Auth::user()->hasRole('Knitter'))
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{url('knitter/dashboard')}}">Dashboard</a>
+          </li>
+          @else
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{url('designer/dashboard')}}">Dashboard</a>
+          </li>
+          @endif
+
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{url('logout')}}">Logout</a>
+          </li>
+
+          @endif
            <li class="nav-item"></li>
         </ul>
       </div>
