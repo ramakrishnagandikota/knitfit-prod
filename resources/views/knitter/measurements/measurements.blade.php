@@ -29,24 +29,31 @@
    	@if($meas->count() > 0)
 
    	@foreach($meas as $ms)
+
+    <?php 
+    if($ms->user_meas_image){
+      $img = $ms->user_meas_image;
+    }else{
+      $img = 'https://via.placeholder.com/200X250';
+    }
+    ?>
         
-        <div class="col-lg-6 col-xl-3 col-md-6">
-                <div class="card rounded-card user-card">
-                    <div class="card-block">
-                        <div class="img-hover">
-                            <img class="img-fluid img-radius fixed-width-img" src="https://via.placeholder.com/200X250" alt="round-img">
-                        </div>
-                        <div class="user-content">
-                            <h4 class="">{{$ms->m_title ?? 'No Name'}}</h4>
+        <div class="col-lg-6 col-xl-2 col-md-6 measurementbox" id="id_{{base64_encode($ms->id)}}">
+                    <div class="card rounded-card custom-card overlay-card">
+                        <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
+                    
+                        <div class="user-content text-left">
+                            <h4 class="m-l-10 text-center"> <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h4>
                             
+                            <!-- <p class="m-b-0 text-muted">The Boyfriend Sweater is a true classic,it is extremely comfortable and not at all fussy!</p> -->
                             <div class="editable-items">
-                            <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}" ><i class="fa fa-pencil" title="Edit"></i></a>
-<a href="{{url('knitter/measurements/delete/'.base64_encode($ms->id))}}" onclick="return confirm('Are you sure want to delete ?') " ><i class="fa fa-trash" title="Delete"></i></a>
+                              <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}" ><i class="fa fa-pencil"></i></a>
+                              <i class="fa fa-trash getId" data-id="{{base64_encode($ms->id)}}" data-toggle="modal" data-dismiss="modal" data-target="#child-Modal"></i>
+                          </div>
                         </div>
-                        </div>
+                      
                     </div>
                 </div>
-            </div>
             @endforeach
 
             @else
@@ -85,13 +92,13 @@
                     </div>
                     <div class="modal-body">
                         <p></p>
-                           <p class="text-center"> <img class="img-fluid" src="../../files/assets/images/delete.png" alt="Theme-Logo" /></p>
+                           <p class="text-center"> <img class="img-fluid" src="{{asset('resources/assets/files/assets/images/delete.png') }}" alt="Theme-Logo" /></p>
                            <h6 class="text-center">Do You really want to Delete selected Profile ?</h6>
                            <p></p>
                     </div>
                     <div class="modal-footer">
                             <button class="btn waves-effect waves-light btn-primary theme-outline-btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger delete-card" data-dismiss="modal">Delete</button>
+                            <button type="button" data-id="0" class="btn btn-danger delete-card" data-dismiss="modal">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -141,6 +148,47 @@
 
 <script type="text/javascript">
   $(function(){
+
+    $(document).on('click','.getId',function(){
+
+      var id = $(this).attr('data-id');
+      $(".delete-card").attr('data-id',id);
+    });
+
+    $(document).on('click','.delete-card',function(){
+      var id = $(this).attr('data-id');
+      
+      if(id != 0){
+        $.get( "knitter/measurements/delete/"+id, function( data ) {
+          if(data == 0){
+            $("#id_"+id).remove();
+            Swal.fire(
+                      'Great!',
+                      'Measurement set removed successfully.',
+                      'success'
+                    )
+          }else{
+            Swal.fire(
+                      'Oops!',
+                      'Unable to remove Measurement set',
+                      'fail'
+                    )
+          }
+          
+        });
+      }else{
+        Swal.fire(
+                  'Oops!',
+                  'Unable to delete.Please refresh the page and try again',
+                  'fail'
+                )
+      }
+      
+    });
+
+
+//Notifi('fa-check','Success','Good boy');
+
     setTimeout(function(){ $('.alert-success').hide() },4000);
 
     $(document).on('change','#file-upload-form',function(e){
@@ -213,8 +261,8 @@
         //var name = localStorage.getItem('measurement_name');
         //alert(name);
 
-        localStorage.setItem('measurement_name','');
-        
+        localStorage.setItem('m_title',measurement_name);
+        window.location.assign('{{url("knitter/add-measurementset")}}');
         
      /*   var Data = $("#insert-measurements").serializeArray();
     ////alert(JSON.stringify(Data))
@@ -240,6 +288,49 @@
     });
 
   });
+
+
+   function Notifi(icon,m,msg){
+
+     $.notify({
+            icon: 'fa '+icon,
+            title: m+'!',
+            message: msg
+        },{
+            element: 'body',
+            position: null,
+            type: "info",
+            allow_dismiss: true,
+            newest_on_top: true,
+            showProgressbar: true,
+            placement: {
+                from: "top",
+                align: "right"
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 10000,
+            style: 'bootstrap',
+            delay : 5000,
+            animate: {
+                enter: 'animated fadeInUp',
+                exit: 'animated fadeOutDown'
+            },
+            icon_type: 'class',
+            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+            '<span data-notify="icon"></span> ' +
+            '<span data-notify="title">{1}</span> ' +
+            '<span data-notify="message">{2}</span>' +
+            '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+            '</div>' +
+            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+            '</div>'
+        });
+
+ }
+
 </script>
 
 @endsection

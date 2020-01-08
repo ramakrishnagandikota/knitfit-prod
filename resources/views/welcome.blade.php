@@ -87,6 +87,10 @@
             <a class="nav-link js-scroll-trigger" href="{{url('logout')}}">Logout</a>
           </li>
 
+          @else
+			<li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{{url('login')}}">LogIn</a>
+          </li>
           @endif
            <li class="nav-item"></li>
         </ul>

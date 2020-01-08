@@ -28,6 +28,16 @@ class KnitterMeasurementController extends Controller
         return view('knitter.measurements.load-measurements',compact('measurements'));
     }
 
+    function add_measurements(Request $request){
+        //$request->session()->forget('measurement_id');
+        $mid = $request->session()->get('measurement_id');
+
+        if($mid){
+            return redirect('knitter/measurements/edit/'.base64_encode($mid));
+        }
+        return view('knitter.measurements.add-measurement');
+    }
+
     function get_my_measurements(){
         $meas = User::find(Auth::user()->id)->measurements;
         return view('knitter.measurements.measurements',compact('meas'));
@@ -37,7 +47,7 @@ class KnitterMeasurementController extends Controller
     	$id = base64_decode($request->id);
     	try {
         	$me = UserMeasurements::find($id);
-    		return view('knitter.measurements.edit-measurements',compact('me'));
+    		return view('knitter.measurements.edit-measurements',compact('me','id'));
 	    } catch (Exception $e) {
 	        return $e->getMessage();
 	    }
@@ -46,38 +56,45 @@ class KnitterMeasurementController extends Controller
 
     function create_measurements(Request $request){
         
-        if(isset($request->image)){
-            $imagepath = $request->image;
-        }elseif(isset($request->image1)){
-            $imagepath = $request->image1;
+        if(isset($request->user_meas_image)){
+            $imagepath = $request->user_meas_image;
         }else{
-            $imagepath = "";
+            $imagepath = "https://via.placeholder.com/200X250";
         }
-        //print_r($request->all());
-        //exit;
+
+        $mp = $request->measurement_preference;
         
-        $array = array('user_id' => Auth::user()->id,'m_title' => $request->measurement_name,'m_description' => $request->description,'user_meas_image' => $imagepath);
+        $array = array('user_id' => Auth::user()->id,'m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)),'measurement_preference' => $request->measurement_preference,'user_meas_image' => $imagepath);
         $data = DB::table('user_measurements')->insertGetId($array);
 
         if($data){
-            return response()->json(['status' => 'success', 'id' => base64_encode($data)]);
+$body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
+$body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
+$neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
+$request->session()->put('measurement_id', $data);
+            return view('knitter.measurements.getmeasurements',compact('data','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
         }else{
             return response()->json(['status' => 'fail']);
         }
     }
 
-    function update_measurements(Request $request){
-        $data = Input::all();
-            $array = array('m_title' => $data['m_title'],'m_description'=>$data['m_description'],'difficulty_level'=>$data['difficulty_level'],'tools_needed'=>$data['tools_needed'],'hips'=>$data['hips'],'waist' => $data['waist'],'bust' => $data['bust'],'neck_edge_to_shoulder' => $data['neck_edge_to_shoulder'],'wrist_circumference' => $data['wrist_circumference'],'forearm_circumference' => $data['forearm_circumference'],'upper_arm_circumference' => $data['upper_arm_circumference'],'waist_to_underarm' => $data['waist_to_underarm'],'length_to_under_arm' => $data['length_to_under_arm'],'length_wrist_to_elbow' => $data['length_wrist_to_elbow'],'armhole_depth' => $data['armhole_depth'],'waist_front' => $data['waist_front'],'bust_front' => $data['bust_front'],'bust_back' => $data['bust_back'],'waist_back' => $data['waist_back'],'arm_length_to_shoulder'=>$data['arm_length_to_shoulder'],'shoulder_to_shoulder'=>$data['shoulder_to_shoulder'],'neck_depth'=>$data['neck_depth'],'lenght_elbow_to_under_arm'=>$data['lenght_elbow_to_under_arm'],'shoulder_circumference'=>$data['shoulder_circumference'],'neck_width'=>$data['neck_width'],'updated_at' => date('Y-m-d H:i:s'));
-            $ins = DB::table('user_measurements')->where('id',$request->id)->update($array);
+    function update_variables(Request $request){
+        //print_r($request->all());
+        //exit;
+       $id = base64_decode($request->id);
+
+       $array = array('hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'length_to_underarm' => $request->length_to_underarm,'length_wrist_to_elbow' => $request->length_wrist_to_elbow,'length_elbow_to_underarm' => $request->length_elbow_to_underarm,'arm_length_to_top_of_shoulder' => $request->arm_length_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+
+      $ins = DB::table('user_measurements')->where('id',$id)->update($array);
         
         
         if($ins){
-            Session::flash('message','Measurement profile saved successfully');
-            return redirect('knitter/measurements');
+            $request->session()->forget('measurement_id');
+            return response()->json(['status' => 'success']);
         }else{
-            Session::flash('message','Problem in saving.Try again after some time.');
-            return redirect()->back();
+            return response()->json(['status' => 'fail']);
         }
     }
 
@@ -105,6 +122,37 @@ class KnitterMeasurementController extends Controller
      }else{
         echo 'error';
      }
+    }
+
+
+    function measurement_confirmation(Request $request){
+        $id = base64_decode($request->id);
+$us = DB::table('user_measurements')->where('id',$id)->first();
+$mp = $us->measurement_preference;
+$body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
+$body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
+$neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
+return view('knitter.measurements.measurements-add-confirm',compact('us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
+    }
+
+
+    function get_measurement_variables(Request $request){
+        $id = base64_decode($request->id);
+$us = DB::table('user_measurements')->where('id',$id)->first();
+if($request->mp =='inches'){
+    $mp = 'inches';
+}else{
+    $mp = 'centimeters';
+}
+
+$body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
+$body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
+$neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
+return view('knitter.measurements.edit-measurement-variables',compact('us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
     }
 
     function delete_measurements(Request $request){

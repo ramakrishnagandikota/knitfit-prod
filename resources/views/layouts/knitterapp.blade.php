@@ -243,8 +243,9 @@
   animation: spin 2s linear infinite;
   position: fixed;
     margin: auto;
-    top: 150px;
-
+    top: 150px !important;
+    webkit-transform: none !important;
+    transform: none !important;
 }
 
 /* Safari */
@@ -261,7 +262,7 @@
 .loading{
     display: none;
       background: #00000085;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     z-index: 10000;
@@ -269,6 +270,9 @@
   
 }
  </style> 
+ <script type="text/javascript">
+     var URL = "{{url('/')}}";
+ </script>
 <!-- Required Jquery -->
 <script type="text/javascript" src="{{ asset('resources/assets/files/bower_components/jquery/js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('resources/assets/files/bower_components/jquery-ui/js/jquery-ui.min.js')}}"></script>
@@ -292,11 +296,27 @@
 
 
 <!-- Bootstrap Notification js-->
-<script src="{{ asset('resources/assets/assets/js/bootstrap-notify.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('resources/assets/select2/animate.css')}}">
+<script type="text/javascript" src="{{asset('resources/assets/assets/bootstrap-notify/bootstrap-notify.min.js')}}"></script>
 
+
+<style type="text/css">
+    [data-notify="progressbar"] {
+    margin-bottom: 0px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 5px;
+}
+
+
+</style>
 
 
 @yield('footerscript')
+
+
 </body>
 
 </html>

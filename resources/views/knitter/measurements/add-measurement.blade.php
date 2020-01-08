@@ -38,12 +38,12 @@
                             @csrf
                            <div class="row">
                               <div class="col-lg-3">
-                                <input placeholder="Name" type="text" class="form-control" id="m_title" name="m_title" value="{{$me->m_title}}">
+                                <input placeholder="Name" type="text" class="form-control" id="m_title" name="m_title">
                                 <span class="red m_title"></span>
                               </div>
                               <div class="col-lg-1"></div>
                               <div class="col-lg-2"> 
-                                <input id="dropper-default" class="form-control" type="text" placeholder="Select your date" name="m_date" value="{{date('m/d/Y',strtotime($me->m_date))}}" />
+                                <input id="dropper-default" class="form-control" type="text" placeholder="Select your date" name="m_date" />
                                 <span class="red m_date"></span>
                               </div>
                               <div class="col-lg-6">
@@ -53,7 +53,7 @@
                                        
                                           <div class="radio radio-inline">
                                              <label>
-                                             <input type="radio" id="radio1" class="radio" @if($me->measurement_preference == 'inches') checked @endif name="measurement_preference" value="inches">
+                                             <input type="radio" checked="checked" name="measurement_preference" value="inches">
                                              <i class="helper"></i><span class="radio-text">Inches</span>
                                              </label>
                                           </div>
@@ -61,7 +61,7 @@
                                     <div class="col-lg-2">
                                     <div class="radio radio-inline">
                                     <label>
-                                    <input type="radio" id="radio2" class="radio" @if($me->measurement_preference == 'centimeters') checked @endif  name="measurement_preference" value="centimeters">
+                                    <input type="radio"  name="measurement_preference" value="centimeters">
                                     <i class="helper"></i><span class="radio-text">Centimeters</span>
                                     </label>
                                     </div>
@@ -72,7 +72,7 @@
                                  </div>
                               </div>
                            </div>
-                           <input type="hidden" id="imageurl" name="user_meas_image" value="{{$me->user_meas_image}}">
+                           <input type="hidden" id="imageurl" name="user_meas_image" value="0">
                          </form>
                            <!-- <div class="row">
                               <label class="col-sm-12 col-form-label">For Whom</label>
@@ -85,7 +85,7 @@
                                  <br>    <br>
                               </div>
                               
-                              <div class="col-lg-12 hide">
+                              <div class="col-lg-12">
                                  <div class="row">
                                     <div class="col-lg-6 m-l-15">
 
@@ -113,12 +113,14 @@
                               <div class="col-md-12">
                                 <div class="row" id="imageplace">
                                   
-                                <div class="box"><img src="{{$me->user_meas_image}}" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;" class="icon1"></a><a href="#" class="fa fa-trash-o pull-right icon2"></a></span></div>
+
                               
                                 </div>
                               </div>
 
-                              
+                              <div class="col-lg-12">
+                                 <button type="button" id="submit" class="btn btn-default theme-btn pull-right waves-effect m-r-10">Save</button>
+                              </div>
                            </div>
                            <!--First Accordion Ends here -->
                            <!-- <div class="sub-title">Example 1</div> -->
@@ -229,7 +231,7 @@
 <script type="text/javascript">
    $(function(){
 
-    get_variables();
+    
    
    if(window.localStorage){
     var name = localStorage.getItem('m_title'); 
@@ -306,60 +308,83 @@ $("#imageplace").html(ip);
    });
    
    });
-
-  $("input[type='radio']").click(function(){
-        var radioValue = $("input[name='measurement_preference']:checked").val();
-        if(radioValue != '{{$me->measurement_preference}}'){
-
-          if(confirm('If you change the measurement preference , the data may get lost ?')){
-              get_variables('centimeters');
-      setTimeout(function(){ 
-        $(".js-example-basic-single").val(0); 
-        $(".js-example-basic-single").select2().trigger('change'); 
-      },2000);
-          }else{
-            get_variables('inches');
-    $("#radio1").prop("checked", true);
-          }
-        }else{
-
-           if(confirm('If you change the measurement preference , the data may get lost ?')){
-              get_variables('inches');
-              $("#radio1").prop("checked", true);
-           }else{
-
-               get_variables('centimeters');
-     setTimeout(function(){ 
-        $(".js-example-basic-single").val(0); 
-        $(".js-example-basic-single").select2().trigger('change'); 
-      },2000);
-     
-           }
-
-        }
-    });
    
    
-   });
-
-   function get_variables(val){
-    if(val){
-      if(val == 'inches'){
-      var mp = 'inches';
-    }else{
-      var mp = 'centimeters';
-    }
-    }else{
-      var mp = '{{$me->measurement_preference}}';
-    }
+   $(document).on('click','#submit',function(){
     
-    var id = '{{base64_encode($id)}}';
-    $.get('{{url("knitter/get-measurement-variables/")}}/'+id+'/'+mp,function(res){
-      $("#allmeasurements").removeClass('hide').html(res);
-
-    });
-
+   $.ajaxSetup({
+   headers: {
+   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
    }
+   }); 
+   var m_title = $("#m_title").val();
+   var m_date = $("#dropper-default").val();
+   var imageurl = $("#imageurl").val();
+   
+   var er = [];
+   var cnt = 0;
+   
+   if(m_title == ""){
+   $(".m_title").html('Please enter measurement name.');
+   er+=cnt+1;
+   }else{
+   $(".m_title").html('');
+   }
+
+   if(m_date == ""){
+   $(".m_date").html('Please select date.');
+   er+=cnt+1;
+   }else{
+   $(".m_date").html('');
+   }
+
+   if(imageurl == 0){
+   $(".imageurl").html('Please upload image.');
+   er+=cnt+1;
+   }else{
+   $(".imageurl").html('');
+   }
+   
+   
+   
+   
+   if(er != 0){
+   return false;
+   }
+   
+   
+   
+      var Data = $("#measurements").serializeArray();
+   ////alert(JSON.stringify(Data))
+   $.ajax({
+   url : '{{url("knitter/create-measurements")}}',
+   type : 'POST',
+   data : Data,
+   beforeSend : function(){
+
+    $(".loading").show();
+   },
+   success : function(res){
+   //alert(res)
+   if(res.status =='fail'){
+    //alert('unable to upload measurement.Try again later.');
+     Notifi('fa-times','Success','Measurement set added successfully.','success');
+   }else{
+    $(".accordion:first-child").trigger('click');
+    $("#submit").prop('disabled',true);
+    $("#allmeasurements").removeClass('hide').html(res);
+   
+   }
+   },
+   complete : function(){
+   $(".loading").hide();
+   }
+   }); 
+   });
+   
+
+
+   });
 
    function Notifi(icon,m,msg,info){
 

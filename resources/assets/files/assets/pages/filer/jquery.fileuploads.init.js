@@ -98,7 +98,7 @@ $(document).ready(function(){
             drop: null,
         },
         uploadFile: {
-            url: "../files/assets/pages/filer/php/ajax_upload_file.php",
+            url: URL+"/knitter/upload-measurement-picture",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -130,7 +130,7 @@ $(document).ready(function(){
         afterShow: null,
         onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
             var file = file.name;
-            $.post('../files/assets/pages/filer/php/ajax_remove_file.php', {file: file});
+            $.post("{{url('knitter/upload-measurement-picture')}}", {file: file});
         },
         onEmpty: null,
         options: null,
