@@ -82,10 +82,11 @@ $request->session()->put('measurement_id', $data);
 
     function update_variables(Request $request){
         //print_r($request->all());
+        //echo count($request->all());
         //exit;
        $id = base64_decode($request->id);
 
-       $array = array('hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'length_to_underarm' => $request->length_to_underarm,'length_wrist_to_elbow' => $request->length_wrist_to_elbow,'length_elbow_to_underarm' => $request->length_elbow_to_underarm,'arm_length_to_top_of_shoulder' => $request->arm_length_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+       $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'user_meas_image' => $request->user_meas_image,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'length_to_underarm' => $request->length_to_underarm,'length_wrist_to_elbow' => $request->length_wrist_to_elbow,'length_elbow_to_underarm' => $request->length_elbow_to_underarm,'arm_length_to_top_of_shoulder' => $request->arm_length_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
 
       $ins = DB::table('user_measurements')->where('id',$id)->update($array);
         
@@ -152,7 +153,7 @@ $body_length = DB::table('measurement_variables')->where('variable_type','body_l
 $arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
 $arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
 $neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
-return view('knitter.measurements.edit-measurement-variables',compact('us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
+return view('knitter.measurements.edit-measurement-variables',compact('id','us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
     }
 
     function delete_measurements(Request $request){

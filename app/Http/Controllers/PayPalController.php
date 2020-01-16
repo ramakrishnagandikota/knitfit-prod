@@ -9,6 +9,7 @@ use Redirect;
 use Auth;
 use Session;
 use DB;
+use Carbon\Carbon;
 
 class PayPalController extends Controller
 {
@@ -133,12 +134,8 @@ class PayPalController extends Controller
     {
     	$provider = PayPal::setProvider('express_checkout'); 
         $response = $provider->getExpressCheckoutDetails($request->token);
-
-        //echo '<pre>';
-        //print_r($response);
-        //echo '</pre>';
-        //exit;
-  
+		
+		
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
            // dd('Your payment was successfully. You can create success page here.');
             $order_id = base64_decode($request->order_id);
@@ -146,7 +143,7 @@ class PayPalController extends Controller
             $booking_process = DB::table('booking_process')->where('booking_order_id',$order_id)->get();
         return view('shopping.order-success',compact('orders','booking_process'));
         }
-  
+
         dd('Something is wrong.');
     }
 }

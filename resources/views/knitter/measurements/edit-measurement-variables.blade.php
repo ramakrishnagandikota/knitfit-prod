@@ -322,10 +322,18 @@
                         <!--Seventh Accordion Ends here-->
                         <div class="text-center m-b-10">
                            <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect m-r-10">Cancel</a>
-                           <button id="savedata" onclick="savedata()" class="btn theme-btn btn-primary waves-effect waves-light">Save</button>
+                           <button id="savedata" onclick="savedata()" class="btn theme-btn btn-primary waves-effect waves-light">Update</button>
                         </div>
                         <!-- end of card-block -->
                      </div>
+
+
+<style type="text/css">
+   .error{
+      border: 1px solid red !important;
+      border-radius: .25rem !important;
+   }
+</style>
 
 <script type="text/javascript">
    $(function(){
@@ -335,8 +343,38 @@
    });
 
    function savedata(){
-      var Data = $("#bodymeasurements").serializeArray();
+      //var select = $(".js-example-basic-single");
+      var er = [];
+      var cnt = 0;
 
+    /*  $("select").each(function(index,el){
+          if($(this).val() == 0){
+            $("span",this).length
+           //$(this).children().find("span.select2-selection--single").addClass('error'); //.eq(1).addClass('error');
+            //$(this+':nth-child(3)').addClass('error');
+            //er+=cnt+1;
+          //} //<-- Should return all input elements in that specific form.
+          
+       }
+      }); 
+
+      if(er != ""){
+         alert('please fill all measurement inputs.');
+         return false;
+      }
+      alert('done');
+      return false;
+      */
+      var m_title = $("#m_title").val();
+      var m_date = $("#dropper-default").val();
+      var measurement_preference = $("input[name='measurement_preference']:checked").val();
+      var user_meas_image = $("#imageurl").val();
+
+      var Data = $("#bodymeasurements").serializeArray();
+                 Data.push({name: 'm_title', value: m_title});
+                 Data.push({name: 'm_date', value: m_date});
+                 Data.push({name: 'measurement_preference', value: measurement_preference});
+                 Data.push({name: 'user_meas_image', value: user_meas_image});
       $.ajax({
           url : '{{url("knitter/update-variables")}}',
           type : 'POST',
@@ -346,13 +384,14 @@
           },
           success : function(res){
             if(res.status == 'success'){
-               Notifi('fa-check','Success','Measurement variables added successfully.','success');
+            Notifi('fa-check','Success','Measurement variables updated successfully.','success');
+            setTimeout(function(){ window.location.assign('{{url("knitter/measurements")}}') },2000)
             }else{
                Notifi('fa-times','Fail','Unable to add Measurement variable, Try again after some time.','danger')
             }
           },
           complete : function(){
-            $(".loading").hide();
+            setTimeout(function(){ $(".loading").hide(); },1000)
           }
       });
    }

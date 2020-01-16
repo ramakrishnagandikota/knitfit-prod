@@ -159,7 +159,7 @@
       var id = $(this).attr('data-id');
       
       if(id != 0){
-        $.get( "knitter/measurements/delete/"+id, function( data ) {
+        $.get( "{{url('knitter/measurements/delete')}}/"+id, function( data ) {
           if(data == 0){
             $("#id_"+id).remove();
             Swal.fire(

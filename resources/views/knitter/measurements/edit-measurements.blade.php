@@ -113,7 +113,7 @@
                               <div class="col-md-12">
                                 <div class="row" id="imageplace">
                                   
-                                <div class="box"><img src="{{$me->user_meas_image}}" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;" class="icon1"></a><a href="#" class="fa fa-trash-o pull-right icon2"></a></span></div>
+                                <div class="box"><img src="{{url($me->user_meas_image)}}" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;" class="icon1"></a><a href="#" class="fa fa-trash-o pull-right icon2"></a></span></div>
                               
                                 </div>
                               </div>
@@ -231,11 +231,6 @@
 
     get_variables();
    
-   if(window.localStorage){
-    var name = localStorage.getItem('m_title'); 
-    $("#m_title").val(name);
-   }
-
 
    $('[data-toggle="tooltip"]').tooltip();
    $('[data-toggle="popover"]').popover({
@@ -351,6 +346,11 @@ $("#imageplace").html(ip);
     }
     }else{
       var mp = '{{$me->measurement_preference}}';
+    }
+
+    if(!mp){
+      alert('Please select measurement preference.');
+      return false;
     }
     
     var id = '{{base64_encode($id)}}';
