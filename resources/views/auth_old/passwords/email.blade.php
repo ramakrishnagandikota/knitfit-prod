@@ -32,7 +32,7 @@
                                 <div class="form-group form-primary">
                                     <input type="text" name="email" class="form-control" required="">
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Enter your email address</label>
+                                    <label class="float-label">Your Email Address</label>
                                     <span class="red">@if($errors->first('email')) {{$errors->first('email')}} @endif</span>
                                 </div>
 
@@ -43,11 +43,11 @@
                                 </button>
                                     </div>
                                 </div>
-                                <p class="f-w-600 text-right">Back to <a href="{{url('login')}}" style="color: #0d665b;">Login.</a></p>
+                                <p class="f-w-600 text-right">Back to <a href="{{url('login')}}" style="color: #0d665c;">Login.</a></p>
                                 <div class="row">
                                     <div class="col-md-10">
                                         <p class="text-inverse text-left m-b-0">Thank you.</p>
-                                        <p class="text-inverse text-left"><a href="{{url('/')}}"><b>Back to website</b></a></p>
+                                        <p class="text-inverse text-left"><a href="index.html"><b>Back to website</b></a></p>
                                     </div>
                                     
                                 </div>

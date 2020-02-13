@@ -84,9 +84,17 @@ $request->session()->put('measurement_id', $data);
         //print_r($request->all());
         //echo count($request->all());
         //exit;
-       $id = base64_decode($request->id);
 
-       $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'user_meas_image' => $request->user_meas_image,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'length_to_underarm' => $request->length_to_underarm,'length_wrist_to_elbow' => $request->length_wrist_to_elbow,'length_elbow_to_underarm' => $request->length_elbow_to_underarm,'arm_length_to_top_of_shoulder' => $request->arm_length_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+        if($request->type == 'add'){
+            $id = base64_decode($request->id);
+
+       $array = array('hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'wrist_to_underarm' => $request->wrist_to_underarm,'wrist_to_elbow' => $request->wrist_to_elbow,'elbow_to_underarm' => $request->elbow_to_underarm,'wrist_to_top_of_shoulder' => $request->wrist_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+        }else{
+            $id = base64_decode($request->id);
+
+       $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'user_meas_image' => $request->user_meas_image,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'wrist_to_underarm' => $request->wrist_to_underarm,'wrist_to_elbow' => $request->wrist_to_elbow,'elbow_to_underarm' => $request->elbow_to_underarm,'wrist_to_top_of_shoulder' => $request->wrist_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+        }
+       
 
       $ins = DB::table('user_measurements')->where('id',$id)->update($array);
         
@@ -108,7 +116,7 @@ $request->session()->put('measurement_id', $data);
 
          $s3 = \Storage::disk('s3');
         //exit;
-        $filepath = '/knitfit/'.$filename;
+        $filepath = 'knitfit/'.$filename;
 
         $img = Image::make($request->file('file'));
         $img->orientate();
@@ -116,10 +124,10 @@ $request->session()->put('measurement_id', $data);
             //$constraint->aspectRatio();
         });
         $img->encode('jpg');
-        $pu = $s3->put($filepath, $img->__toString(), 'public');
+        $pu = $s3->put('/'.$filepath, $img->__toString(), 'public');
 
        if($pu){
-         return response()->json(['path' => 'https://s3.us-east-2.amazonaws.com/'.env('AWS_BUCKET').$filepath]);
+         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/'.env('AWS_BUCKET').'/'.$filepath]);
      }else{
         echo 'error';
      }
@@ -140,7 +148,7 @@ return view('knitter.measurements.measurements-add-confirm',compact('us','mp','b
 
 
     function get_measurement_variables(Request $request){
-        $id = base64_decode($request->id);
+         $id = base64_decode($request->id);
 $us = DB::table('user_measurements')->where('id',$id)->first();
 if($request->mp =='inches'){
     $mp = 'inches';
@@ -157,13 +165,49 @@ return view('knitter.measurements.edit-measurement-variables',compact('id','us',
     }
 
     function delete_measurements(Request $request){
-    	$id = base64_decode($request->id);
+    	$id = $request->id;
         $me = UserMeasurements::find($id);
         $del = $me->delete();
         if($del){
             return 0;
         }else{
             return 1;
+        }
+    }
+
+    function delete_picture(Request $request){
+        if($request->type == 'insert'){
+            $s3 = \Storage::disk('s3');
+            if($s3->exists($request->path)){
+                $s3->delete($request->path);
+            }else{
+                $del = 'no';
+            }
+            //exit;
+        }else{
+            $id = $request->id;
+            $s3 = \Storage::disk('s3');
+            $delete = $s3->delete($request->path);
+            $me = UserMeasurements::find($id);
+            $me->user_meas_image = 'https://via.placeholder.com/200X250';
+            $del = $me->save();
+        }
+        
+        if($del){
+            return response()->json(['status' => 'success']);
+        }else{
+            return response()->json(['status' => 'fail']);
+        }
+    }
+
+
+    function delete_only_picture(Request $request){
+        $s3 = \Storage::disk('s3');
+        $del = $s3->delete($request->path);
+        if($del){
+            return response()->json(['status' => 'success']);
+        }else{
+            return response()->json(['status' => 'fail']);
         }
     }
 }

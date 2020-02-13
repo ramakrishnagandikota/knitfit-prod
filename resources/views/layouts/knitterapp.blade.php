@@ -96,11 +96,17 @@
                                         </div>
                                     </div>
                                 </li>
+                       <!-- <li>
+                            <div class="text-center">
+                                <a href="url('subscription')}}" class="btn btn-primary">Subscribe</a>
+                            </div>
+                        </li> -->
+
                         <li class="header-notification">
                             <div class="dropdown-primary dropdown">
                                 <div class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="feather icon-bell"></i>
-                                    <span class="badge bg-c-red">5</span>
+                                   <!--  <span class="badge bg-c-red">5</span> -->
                                 </div>
                                 <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                     <li>
@@ -202,7 +208,7 @@
                             <i class="feather icon-x"></i>
                         </a>
                         <div class="row right-menubar">
-                            <div class="col-lg-6 col-6"><figure class="no-bg"><a href="#" class="m-l-10"> <img class="icon-img" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Projects.png')}}" /></a><figcaption class="text-muted text-center">Project Library</figcaption></figure></div>
+                            <div class="col-lg-6 col-6"><figure class="no-bg"><a href="{{url('knitter/project-library')}}" class="m-l-10"> <img class="icon-img" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Projects.png')}}" /></a><figcaption class="text-muted text-center">Project Library</figcaption></figure></div>
                             <div class="col-lg-6 col-6"> <a href="#">
                                 <figure class="no-bg">
                                     <img class="icon-img" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Shop-Design.png')}}" /></a>
@@ -246,6 +252,7 @@
     top: 150px !important;
     webkit-transform: none !important;
     transform: none !important;
+    left: 0px !important;
 }
 
 /* Safari */
@@ -269,6 +276,44 @@
     padding: 0px;
   
 }
+
+/* sweet alert customizes css */
+  .swal2-icon.swal2-success [class^=swal2-success-line]{
+	  background-color: #0d665c !important;
+  }
+  .swal2-icon.swal2-success .swal2-success-ring{
+	  border:.25em solid rgb(13, 102, 92)
+  }
+  .swal2-styled.swal2-confirm {
+    
+    background-color: #0d665c !important;
+    color: #fff !important;
+    border: 1px solid #0d665c !important;
+  }
+  .swal2-icon.swal2-error [class^=swal2-x-mark-line]{
+	  background-color: #bc7c8f !important;
+  }
+  .swal2-icon.swal2-error {
+    border-color: #bc7c8f !important;
+    color: #bc7c8f !important;
+}
+.swal2-styled.swal2-cancel {
+    background-color: #bc7c8f !important;
+}
+.swal2-icon.swal2-warning {
+    border-color: #bc7c8f !important;
+    color: #bc7c8f !important;
+}
+.alert-success {
+    background-color: #fff;
+    border-color: #0d665c;
+    color: #0d665c;
+}
+.alert-danger {
+    background-color: #fff;
+    border-color: #bc7c8f;
+    color: #bc7c8f;
+}
  </style> 
  <script type="text/javascript">
      var URL = "{{url('/')}}";
@@ -290,8 +335,7 @@
 <script src="{{ asset('resources/assets/files/assets/js/pcoded.min.js')}}"></script>
 <script src="{{ asset('resources/assets/files/assets/js/vertical/vertical-layout.min.js')}}"></script>
 <script src="{{ asset('resources/assets/files/assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
-<!-- Custom js -->
-<script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 
 

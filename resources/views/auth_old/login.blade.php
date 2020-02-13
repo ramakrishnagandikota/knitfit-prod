@@ -14,7 +14,7 @@
                             <div class="custom-padding">
                                 <div class="row m-b-10">
                                     <div class="col-md-12">
-                                        <h5 class="text-center txt-primary">Log in</h5>
+                                        <h5 class="text-center txt-primary">Login</h5>
                                     </div>
                                 </div>
                                 <!-- <p class="text-muted text-center p-b-5">Sign in with your regular account</p> -->
@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="form-group form-primary">
                                     <input type="password" name="password" class="form-control" >
-                                    <!-- <i class="fa fa-info pophover" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="Your password must be more than 8 characters long, should contain at least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character."></i> -->
+                                    <i class="fa fa-info pophover" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="Your password must be more than 8 characters long, should contain at least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character."></i>
                                     <span class="form-bar"></span>
                                     <label class="float-label text-muted">Password</label> <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     <span class="red">@if($errors->first('password')) {{$errors->first('password')}} @endif</span>
@@ -43,14 +43,14 @@
                                             </label> -->
                                         </div>
                                         <div class="forgot-phone text-right float-right m-b-20">
-                                            <a href="{{url('reset-password')}}" class="text-right text-muted micro-label"> Forgot password?</a>
+                                            <a href="{{url('reset-password')}}" class="text-right text-muted micro-label"> Forgot Password?</a>
                                         </div>
                                     </div>
                                 </div>
                               
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <p class="text-muted p-b-5 m-t-5">Or log in with</p> 
+                                        <p class="text-muted p-b-5 m-t-5">Or Login with</p> 
                                     </div>
                                     <div class="col-md-4">
                                     <a href="{{url('auth/google')}}" class="btn waves-effect btn-sm custom-social-google waves-light btn-google-plus"><i class="icofont icofont-social-google-plus"></i>Google</a>
@@ -73,8 +73,7 @@
 @section('footersection')
                         <style type="text/css">
                         .red{
-                            color: #bc7c8f;
-							font-weight:bold;
+                            color: red;
                             font-size: 12px;
                         }
     .pophover{

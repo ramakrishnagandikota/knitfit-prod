@@ -72,7 +72,7 @@
                                  </div>
                               </div>
                            </div>
-                           <input type="hidden" id="imageurl" name="user_meas_image" value="0">
+                           <input type="hidden" id="imageurl" name="user_meas_image" value="https://via.placeholder.com/150X200">
                          </form>
                            <!-- <div class="row">
                               <label class="col-sm-12 col-form-label">For Whom</label>
@@ -85,7 +85,7 @@
                                  <br>    <br>
                               </div>
                               
-                              <div class="col-lg-12">
+                              <div class="col-lg-12" id="image">
                                  <div class="row">
                                     <div class="col-lg-6 m-l-15">
 
@@ -139,6 +139,28 @@
       </div>
    </div>
 </div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Your Measurements</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="confirmVariables">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" onclick="savedata();" class="btn theme-btn btn-primary waves-effect waves-light">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 @endsection
 @section('footerscript')
@@ -284,10 +306,10 @@
    if(data.path != 0){
 
 
-var ip = '<div class="box"><img src="'+data.path+'" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;" class="green icon1">Success</a><a href="#" class="fa fa-trash-o pull-right icon2"></a></span></div>';
+var ip = '<div class="box"><img src="'+data.path+'" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;"  class="green icon1 ">Success</a><a href="#" data-url="'+data.path1+'" class="fa fa-trash-o pull-right icon2 delete-image"></a></span></div>';
 
-$("#imageplace").html(ip);
-
+$("#imageplace").removeClass('hide').html(ip);
+$("#image").addClass('hide');
    //alert(data.path)
    //$("#file-image").attr('src',data.path);
    //$("#file-image1").attr('src',data.path);
@@ -337,15 +359,6 @@ $("#imageplace").html(ip);
    }else{
    $(".m_date").html('');
    }
-
-   if(imageurl == 0){
-   $(".imageurl").html('Please upload image.');
-   er+=cnt+1;
-   }else{
-   $(".imageurl").html('');
-   }
-   
-   
    
    
    if(er != 0){
@@ -384,7 +397,107 @@ $("#imageplace").html(ip);
    
 
 
+     $(document).on('click','.delete-image',function(){
+    var id = $("#id").val();
+    var path = $(this).attr('data-url');
+      Swal.fire({
+        title: 'Are you sure want to delete this image ?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        allowOutsideClick: false,
+        showClass: {
+          popup: 'animated fadeInDown faster'
+        },
+        hideClass: {
+          popup: 'animated fadeOutUp faster'
+        }
+      }).then((result) => {
+        if (result.value) {
+
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+
+          $.ajax({
+            url : "{{url('knitter/measurements/delete-only-picture')}}",
+            type : 'POST',
+            data : 'path='+path,
+            beforeSend : function(){
+              $(".loading").show();
+            },
+            success : function(data){
+              
+              if(data.status == 'success'){
+                $("#imageplace").addClass('hide');
+                $("#image").removeClass('hide');
+                $("#imageurl").val(0);
+
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+            }else{
+                Swal.fire(
+                  'Not Deleted!',
+                  'Server Error , Please try again after some time..',
+                  'error'
+                )
+            }
+            },
+            complete : function(){
+              $(".loading").hide();
+            }
+          })
+          
+
+          
+        }
+      });
+  });
+
+
    });
+
+
+  function getAllData(){
+    var Data = $("#bodymeasurements").serializeArray();
+    //alert(JSON.stringify(Data));
+    var new_str;
+    var obj = JSON.stringify(Data);
+    var aa = JSON.parse(obj);
+    var cc = '<div class="row">';
+    for ($i = 2; $i < aa.length; $i++){
+      var heading = aa[$i]['name'].replace(/[^a-zA-Z ]/g, " ");
+      new_str = heading.charAt(0).toUpperCase()+heading.slice(1);
+      if($i == 2){
+        cc+='<h5 class="col-md-12 card-header-text theme-heading">Body size</h5>';
+      }else if($i == 8){
+        cc+='<h5 class="col-md-12 card-header-text theme-heading">Body length</h5>';
+      }else if($i == 10){
+        cc+='<h5 class="col-md-12 card-header-text theme-heading">Arm size</h5>';
+      }else if($i == 14){
+        cc+='<h5 class="col-md-12 card-header-text theme-heading">Arm length</h5>';
+      }else if($i == 17){
+        cc+='<h5 class="col-md-12 card-header-text theme-heading">Neck and shoulders</h5>';
+      }
+
+      cc+='<br><div class="col-lg-6"><div class="row"><div class="col-lg-6"><label>'+new_str+'</label></div><div class="col-lg-6">'+aa[$i]['value']+'</div></div></div>';
+      //cc+=aa[$i]['name']+' -- '+aa[$i]['value'];
+    }
+    cc+='</div>';
+    //alert(cc);
+    
+    $("#confirmVariables").html(cc);
+  }
 
    function Notifi(icon,m,msg,info){
 

@@ -44,13 +44,13 @@
                $ran = '0.5';
             }
 
-            $name = ucwords($bs->variable_name);
+            $name = strtolower($bs->variable_name);
             $namesmall = strtolower($bs->variable_name)
 
             ?>
                               <div class="col-md-2">
                                  <div class="form-group">
-                                    <label for="int1">{{$name}} 
+                                    <label for="int1">{{ucfirst($name)}} 
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12 ui-widget">
@@ -81,7 +81,7 @@
                         <!--Forth Accordion-->
                         <div class="row theme-row m-b-10">
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section4">
-                              <h5 class="card-header-text">Body Length</h5>
+                              <h5 class="card-header-text">Body length</h5>
                            </div>
                            <div class="col-lg-1 m-t-15">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
@@ -105,14 +105,14 @@
                $ran1 = '0.5';
             }
 
-            $name1 = ucwords($bl->variable_name);
+            $name1 = strtolower($bl->variable_name);
             $namesmall1 = strtolower($bl->variable_name)
 
             ?>
 
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="int1">{{$name1}} 
+                                    <label for="int1">{{ucfirst($name1)}} 
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -141,7 +141,7 @@
                         <!--Fifth Accordion-->
                         <div class="row theme-row m-b-10">
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section5">
-                              <h5 class="card-header-text">Arm Size</h5>
+                              <h5 class="card-header-text">Arm size</h5>
                            </div>
                            <div class="col-lg-1 m-t-15">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
@@ -165,14 +165,14 @@
                $ran2 = '0.5';
             }
 
-            $name2 = ucwords($as->variable_name);
+            $name2 = strtolower($as->variable_name);
             $namesmall2 = strtolower($as->variable_name)
 
             ?>
 
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="int1">{{$name2}}                                                                                                                       
+                                    <label for="int1">{{ucfirst($name2)}}                                                                                                                       
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -201,7 +201,7 @@
                         <!--Sixth Accordion-->
                         <div class="row theme-row m-b-10">
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section6">
-                              <h5 class="card-header-text">Arm Length</h5>
+                              <h5 class="card-header-text">Arm length</h5>
                            </div>
                            <div class="col-lg-1 m-t-15">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
@@ -224,14 +224,14 @@
                $ran3 = '0.5';
             }
 
-            $name3 = ucwords($al->variable_name);
+            $name3 = strtolower($al->variable_name);
             $namesmall3 = strtolower($al->variable_name)
 
             ?>
 
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="int1">{{$name3}} 
+                                    <label for="int1">{{ucfirst($name3)}} 
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -261,7 +261,7 @@
                         <!--Seventh Accordion-->
                         <div class="row theme-row m-b-10">
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section7">
-                              <h5 class="card-header-text">Neck and Shoulders</h5>
+                              <h5 class="card-header-text">Neck and shoulders</h5>
                            </div>
                            <div class="col-lg-1 m-t-15">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
@@ -284,14 +284,14 @@
                $ran4 = '0.5';
             }
 
-            $name4 = ucwords($ns->variable_name);
+            $name4 = strtolower($ns->variable_name);
             $namesmall4 = strtolower($ns->variable_name)
 
             ?>
 
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="int1">{{$name4}}
+                                    <label for="int1">{{ucfirst($name4)}}
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -321,8 +321,8 @@
                          </form>
                         <!--Seventh Accordion Ends here-->
                         <div class="text-center m-b-10">
-                           <a href="javascript:;" id="edit-cancel" class="btn btn-default waves-effect m-r-10">Cancel</a>
-                           <button id="savedata" onclick="savedata()" class="btn theme-btn btn-primary waves-effect waves-light">Save</button>
+                           <a href="javascript:;" onclick="if(confirm('Are you sure want to go back from this page ?')){ window.location.assign('{{url("knitter/measurements")}}') }" id="edit-cancel" class="btn btn-default waves-effect m-r-10">Cancel</a>
+                           <button id="savedata" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="getAllData();" data-backdrop="static" data-keyboard="false" class="btn theme-btn btn-primary waves-effect waves-light">Save</button>
                         </div>
                         <!-- end of card-block -->
                      </div>
@@ -343,12 +343,13 @@
        localStorage.setItem(id, value);
     });  */
 
-      //window.location.assign('{{url("knitter/measurements/confirmation")}}/'+id);
+      //window.location.assign('///url("knitter/measurements/confirmation")}}/'+id);
 
       var Data = $("#bodymeasurements").serializeArray();
+      Data.push({name: 'type', value: 'add'});
 
       $.ajax({
-          url : 'url("knitter/update-variables")',
+          url : '{{url("knitter/update-variables")}}',
           type : 'POST',
           data : Data,
           beforeSend : function(){
@@ -356,7 +357,7 @@
           },
           success : function(res){
             if(res.status == 'success'){
-               Notifi('fa-check','Success','Measurement variables added successfully.','success');
+               //Notifi('fa-check','Success','Measurement variables added successfully.','success');
               setTimeout(function(){ window.location.assign('{{url("knitter/measurements")}}'); },3000); 
             }else{
                Notifi('fa-times','Fail','Unable to add Measurement variable, Try again after some time.','danger');
@@ -364,7 +365,7 @@
             }
           },
           complete : function(){
-            $(".loading").hide();
+           setTimeout(function(){ $(".loading").hide(); },2000);
           }
       }); 
    }

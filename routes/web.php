@@ -102,3 +102,15 @@ Route::get('add-address',function(){
 });
 
 Route::get('add-address/{id}','Shoppingcontroller@select_address');
+
+/* Express checkout & recurring payments start */
+
+Route::get('subscription', 'TestController@subscription');
+Route::post('paypal/ec-checkout', 'TestController@getExpressCheckout');
+Route::get('paypal/ec-checkout-success', 'TestController@getExpressCheckoutSuccess');
+Route::get('paypal/adaptive-pay', 'TestController@getAdaptivePay');
+
+Route::get('paypal/cancel-subscription', 'TestController@cancel_subscription');
+Route::post('paypal/notify', 'TestController@notify');
+
+/* Express checkout & recurring payments end */

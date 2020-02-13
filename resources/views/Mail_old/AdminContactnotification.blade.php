@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <link rel="icon" href="images/logo/favicon.ico" type="image/png" sizes="16x16">
-    <title>KnitFit | Reset Password</title>
-
+    <title>KnitFit | Support</title>
     <style type="text/css">
         body {
             width: 100%;
@@ -18,7 +17,7 @@
             mso-margin-top-alt: 0px;
             mso-margin-bottom-alt: 0px;
             mso-padding-alt: 0px 0px 0px 0px;
-            font-family:"font-family: Helvetica Neue;"
+            font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"
         }
         
         p,
@@ -135,8 +134,8 @@
     <table style="display:none!important;">
         <tr>
             <td>
-                <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;">
-                    <!-- Pre-header for the newsletter template -->
+                <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1pxmax-height:0px;max-width:0px;opacity:0;">
+                    Pre-header for the newsletter template
                 </div>
             </td>
         </tr>
@@ -185,40 +184,64 @@
                         <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="center" style="color: #343434; font-size: 20px;font-weight:600;letter-spacing: 1px; line-height: 35px;" class="main-header">
-
-
-                            <div style="line-height: 35px">
-
-                               Forgot your password?<br><br>
-
-                            </div>
-                        </td>
-                    </tr>
-                  
-                    <tr>
-                        <td align="center">
-                            <table border="0" width="400" align="center" cellpadding="0" cellspacing="0" class="container590">
-                                <tr>
-                                    <td align="center" style="color: #888888; font-size: 16px; line-height: 24px;">
-
-                                        <div style="line-height: 24px">
-
-                                            Click below to reset your password. 
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    
-                    <tr>
                         <td align="center" style="color: #343434; font-size: 20px; font-weight:700;letter-spacing: 3px; line-height: 35px;" class="main-header">
 
 
                             <div style="line-height: 35px">
 
-                             
+                               Hello Admin ,
+                               You have received a contact notification from 
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="color: #343434; font-size: 20px; font-weight:700;letter-spacing: 3px; line-height: 35px;" class="main-header">
+
+
+                            <div style="line-height: 35px">
+                                
+                                Name :{{$details['name']}}
+                                
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="color: #343434; font-size: 20px; font-weight:700;letter-spacing: 3px; line-height: 35px;" class="main-header">
+
+
+                            <div style="line-height: 35px">
+                                
+                                Email : {{$details['email']}}
+                                
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="color: #343434; font-size: 20px; font-weight:700;letter-spacing: 3px; line-height: 35px;" class="main-header">
+
+
+                            <div style="line-height: 35px">
+                                
+                                Subject : {{$details['subject']}}
+                                
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" style="color: #343434; font-size: 20px; font-weight:700;letter-spacing: 3px; line-height: 35px;" class="main-header">
+
+
+                            <div style="line-height: 35px">
+                                
+                                Message : {{$details['message']}}
+                                
 
                             </div>
                         </td>
@@ -228,54 +251,7 @@
                         <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
                     </tr>
 
-                    <tr>
-                        <td align="center">
-                            <table border="0" width="40" align="center" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
-                                <tr>
-                                    <td height="2" style="font-size: 2px; line-height: 2px;">&nbsp;</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
 
-                    <tr>
-                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
-                    </tr>
-                    <tr><td>&nbsp;</td></tr>
-                    <tr>
-                        <td align="center">
-                            <table border="0" align="center" width="160" cellpadding="0" cellspacing="0" style="background-color: #0d665c;">
-
-                                <tr>
-                                    <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                                </tr>
-
-                                <tr>
-                                    <td align="center" style="color: #ffffff; font-size: 14px; line-height: 26px;">
-
-
-                                        <div style="line-height: 26px;">
-                                            <a href="{{url('validate/password/'.$details['token'])}}" style="color: #ffffff; text-decoration: none;">RESET PASSWORD</a>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                                </tr>
-
-                            </table>
-                        </td>
-                    </tr>
-                    <tr><td>&nbsp;</td></tr>
-                    <tr>
-                        <td align="center" style="color: #000000; font-size: 12px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 40px;">
-
-                            <div style="line-height: 24px">
-                                If you did not forgot your password you can safely ignore this email.
-                            </div>
-                        </td>
-                    </tr>
                 </table>
 
             </td>
@@ -284,6 +260,33 @@
     </table>
 
 
+
+    <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff">
+
+        <tr class="hide">
+            <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td height="50" style="font-size: 50px; line-height: 50px;">&nbsp;</td>
+        </tr>
+
+        <tr>
+       
+            <td align="center" class="divider">
+                <img height="1" width="590" border="0" style="display: block; width: 590px; height: 1px;" src="http://i.imgur.com/S6VbJRx.png" alt="" />
+            </td>
+
+        </tr>
+
+        <tr>
+            <td height="60" style="font-size: 60px; line-height: 60px;">&nbsp;</td>
+        </tr>
+
+    </table>
+
+  
+
+ 
     <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
 
         <tr class="hide">
@@ -317,8 +320,8 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="left" style="color: #888888; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 23px;" class="text_color">
-                                        <div style="color: #333333; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;">
+                                    <td align="left" style="color: #888888; font-size: 14px; line-height: 23px;" class="text_color">
+                                        <div style="color: #333333; font-size: 14px;font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;">
 
                                             Email us: <br/> <a href="mailto:" style="color: #888888; font-size: 14px; font-weight: 400;">inquiry@knitfitco.com</a>
 

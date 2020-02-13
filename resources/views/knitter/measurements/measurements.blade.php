@@ -18,9 +18,9 @@
                                 <!-- Page-body start -->
                                 <div class="page-body">
                                     <div class="row">
-                                        <div class="col-lg-4"><h5 class="theme-heading page-header-title">Measurement Sets</h5></div>
+                                        <div class="col-lg-4"><h5 class="theme-heading page-header-title">Measurement Profiles</h5></div>
                                         <div class="col-lg-8 m-b-10">
-                                                <button class="btn waves-effect pull-right waves-light btn-primary theme-outline-btn" data-toggle="modal" data-target="#myModal"><i class="icofont icofont-plus"></i>Add Measurement</button>
+                                                <button class="btn waves-effect pull-right waves-light btn-primary theme-outline-btn" data-toggle="modal" data-target="#myModal"><i class="icofont icofont-plus"></i>Add measurement profile</button>
                                            </div>
                                         </div>
                                    <!-- round card start -->
@@ -38,7 +38,7 @@
     }
     ?>
         
-        <div class="col-lg-6 col-xl-2 col-md-6 measurementbox" id="id_{{base64_encode($ms->id)}}">
+        <div class="col-lg-6 col-xl-2 col-md-6 measurementbox id_{{$ms->id}}" id="id_{{base64_encode($ms->id)}}">
                     <div class="card rounded-card custom-card overlay-card">
                         <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
                     
@@ -62,16 +62,27 @@
             <div class="card custom-card skew-card">
                     <div class="user-content card-bg m-l-40 m-r-40 m-b-40">
                             <img src="{{asset('resources/assets/files/assets/images/arrow.png') }}" id="arrow-img"> 
-                        <h3 class="m-t-40 text-muted">Let's Make Your First Measurement !</h3>
-                        <h4 class="text-muted m-t-10 m-b-30">A better way to manage your Measurement<br>
-                        awaits you right here....</h4>
+                        <h3 class="m-t-40 text-muted">Let's create your first measurement profile!</h3>
+                        <h4 class="text-muted m-t-10 m-b-30">We'll take your measurements and get you ready to generate a custom pattern!</h4>
                     </div>
                 
             </div>
         </div>
 
             @endif
-                                                
+                   <input type="hidden" id="del_id" value="0">     
+
+
+                   <div class="col-lg-12 col-xl-12 col-md-9 hide" id="nomeasurements">
+            <div class="card custom-card skew-card">
+                    <div class="user-content card-bg m-l-40 m-r-40 m-b-40">
+                            <img src="{{asset('resources/assets/files/assets/images/arrow.png') }}" id="arrow-img"> 
+                        <h3 class="m-t-40 text-muted">Let's create your first measurement profile!</h3>
+                        <h4 class="text-muted m-t-10 m-b-30">We'll take your measurements and get you ready to generate a custom pattern!</h4>
+                    </div>
+                
+            </div>
+        </div>                        
                                     <!-- Round card end -->
                                 </div>
                                 <!-- Page-body end -->
@@ -145,33 +156,48 @@
 @endsection
 
 @section('footerscript')
+<style type="text/css">
+  .hide{
+    display: none;
+  }
+
+</style>
+<!-- Custom js -->
+<script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
 
 <script type="text/javascript">
   $(function(){
+	  
 
     $(document).on('click','.getId',function(){
 
       var id = $(this).attr('data-id');
       $(".delete-card").attr('data-id',id);
+      $("#del_id").val(atob(id));
     });
 
     $(document).on('click','.delete-card',function(){
-      var id = $(this).attr('data-id');
+      var id = $("#del_id").val();
       
       if(id != 0){
+        $(".loading").show();
         $.get( "{{url('knitter/measurements/delete')}}/"+id, function( data ) {
+          setTimeout(function(){ $(".loading").hide(); },1000);
           if(data == 0){
-            $("#id_"+id).remove();
+            $(".id_"+id).remove();
+            if($(".measurementbox").length  == 0){
+              $("#nomeasurements").removeClass('hide');
+            }
             Swal.fire(
                       'Great!',
-                      'Measurement set removed successfully.',
+                      'Measurement profile removed successfully.',
                       'success'
                     )
           }else{
             Swal.fire(
                       'Oops!',
-                      'Unable to remove Measurement set',
-                      'fail'
+                      'Unable to remove Measurement profile',
+                      'error'
                     )
           }
           
@@ -180,7 +206,7 @@
         Swal.fire(
                   'Oops!',
                   'Unable to delete.Please refresh the page and try again',
-                  'fail'
+                  'error'
                 )
       }
       

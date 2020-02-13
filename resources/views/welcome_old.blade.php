@@ -88,11 +88,11 @@
           </li>
 
           @else
-			<li class="nav-item">
+			    <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="{{url('login')}}">LogIn</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="{{url('register')}}">Sign up</a>
+            <a class="nav-link js-scroll-trigger" href="{{url('register')}}">Sign Up</a>
           </li>
           @endif
            <li class="nav-item"></li>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
     <link rel="icon" href="images/logo/favicon.ico" type="image/png" sizes="16x16">
-    <title>KnitFit | Reset Password</title>
+    <title>KnitFit | Activate Account</title>
 
     <style type="text/css">
         body {
@@ -18,7 +18,6 @@
             mso-margin-top-alt: 0px;
             mso-margin-bottom-alt: 0px;
             mso-padding-alt: 0px 0px 0px 0px;
-            font-family:"font-family: Helvetica Neue;"
         }
         
         p,
@@ -125,6 +124,7 @@
                 height: auto !important;
             }
         }
+        body{font-family:"font-family: Helvetica Neue;"}
     </style>
    
 </head>
@@ -136,7 +136,7 @@
         <tr>
             <td>
                 <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;">
-                    <!-- Pre-header for the newsletter template -->
+                    Pre-header for the newsletter template
                 </div>
             </td>
         </tr>
@@ -185,13 +185,11 @@
                         <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="center" style="color: #343434; font-size: 20px;font-weight:600;letter-spacing: 1px; line-height: 35px;" class="main-header">
+                        <td align="center" style="color: #343434; font-size: 20px; font-weight:600;letter-spacing: 1px; line-height: 35px;" class="main-header">
 
 
                             <div style="line-height: 35px">
-
-                               Forgot your password?<br><br>
-
+                               Activate your account!<br><br>
                             </div>
                         </td>
                     </tr>
@@ -204,7 +202,7 @@
 
                                         <div style="line-height: 24px">
 
-                                            Click below to reset your password. 
+                                          <span style="color: #0d665c;"></span> Thanks for Signing up! <br> Please click below to activate your account!
                                         </div>
                                     </td>
                                 </tr>
@@ -255,7 +253,7 @@
 
 
                                         <div style="line-height: 26px;">
-                                            <a href="{{url('validate/password/'.$details['token'])}}" style="color: #ffffff; text-decoration: none;">RESET PASSWORD</a>
+                                            <a href="{{url('registration/check-user-email/'.str_replace('@','-',$details['email'].'/'.$details['encemail']))}}" style="color: #ffffff; text-decoration: none;">ACTIVATE NOW</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -269,10 +267,10 @@
                     </tr>
                     <tr><td>&nbsp;</td></tr>
                     <tr>
-                        <td align="center" style="color: #000000; font-size: 12px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 40px;">
+                        <td align="center" style="color: #000000; font-size: 12px; line-height: 40px;">
 
-                            <div style="line-height: 24px">
-                                If you did not forgot your password you can safely ignore this email.
+                            <div style="line-height: 24px;font-size: 14px;">
+                               This link will be valid for 24 Hours.
                             </div>
                         </td>
                     </tr>
@@ -317,8 +315,8 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="left" style="color: #888888; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 23px;" class="text_color">
-                                        <div style="color: #333333; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;">
+                                    <td align="left" style="color: #888888; font-size: 14px; line-height: 23px;" class="text_color">
+                                        <div style="color: #333333; font-size: 14px; font-weight: 600; mso-line-height-rule: exactly; line-height: 23px;">
 
                                             Email us: <br/> <a href="mailto:" style="color: #888888; font-size: 14px; font-weight: 400;">inquiry@knitfitco.com</a>
 
@@ -421,7 +419,7 @@
                                         <table align="center" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td align="center">
-                                                    <a style="font-size: 14px;line-height: 24px;color: #0d665c; text-decoration: none;font-weight:bold;" href="{{url('/')}}">KnitFit</a>
+                                                    <a style="font-size: 14px; line-height: 24px;color: #0d665c; text-decoration: none;font-weight:bold;" href="{{url('/')}}">KnitFit</a>
                                                 </td>
                                             </tr>
                                         </table>

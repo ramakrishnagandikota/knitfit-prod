@@ -22,7 +22,7 @@
 					<ul id="menu-container">
 						<li>
 							<figure>
-								<a href="#"><img class="dashboard-icons" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Projects.png')}}" ></a>
+								<a href="{{url('knitter/project-library')}}"><img class="dashboard-icons" src="{{ asset('resources/assets/files/assets/icon/custom-icon/Projects.png')}}" ></a>
 								<figcaption class="text-muted">Project Library</figcaption>
 							</figure>
 
@@ -76,13 +76,15 @@
 
 			<div class="row">
 				<div class="col-xl-12">                                       
-					<h4 class="m-b-30 m-t-30">Measurements </h4>
+					<h4 class="m-b-30 m-t-30"></h4>
 				</div>
 			</div>
 
 		<div id="load-measurements">
-			<h4 class="text-center">Unable to get the measurements <a href='javascript:;' onclick="load_measurements()">Click Here</a> to load the data</h4>
+			<h4 class="text-center">Unable to get the measurements <a href='javascript:;' onclick="load_measurements()">Click Here</a> to load measurements</h4>
 		</div>
+
+		 <input type="hidden" id="del_id" value="0"> 
 	</div>
 	<!-- Page-body end -->
 </div>
@@ -122,6 +124,8 @@
 
 @section('footerscript')
 
+<!-- Custom js -->
+<script type="text/javascript" src="{{ asset('resources/assets/files/assets/js/script.js')}}"></script>
 <script type="text/javascript">
 	$(function(){
 
@@ -133,15 +137,17 @@ load_measurements();
 
 			var id = $(this).attr('data-id');
 			$(".delete-card").attr('data-id',id);
+			$("#del_id").val(atob(id));
 		});
 
 		$(document).on('click','.delete-card',function(){
-			var id = $(this).attr('data-id');
-			
+			//var id = $(this).attr('data-id');
+			var id = $("#del_id").val();
 			if(id != 0){
-				$.get( "knitter/measurements/delete/"+id, function( data ) {
+				$.get( "measurements/delete/"+id, function( data ) {
 					if(data == 0){
-						$("#id_"+id).remove();
+						$(".id_"+id).remove();
+						load_measurements();
 						Swal.fire(
 		                  'Great!',
 		                  'Measurement set removed successfully.',

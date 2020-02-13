@@ -124,7 +124,7 @@
                 height: auto !important;
             }
         }
-        body{font-family:"font-family: Helvetica Neue;"}
+        body{font-family:"californian-fb-display, serif"}
     </style>
    
 </head>
@@ -136,7 +136,7 @@
         <tr>
             <td>
                 <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;">
-                    Pre-header for the newsletter template
+                    <!-- Pre-header for the newsletter template -->
                 </div>
             </td>
         </tr>
@@ -188,7 +188,7 @@
                         <td align="center" style="color: #343434; font-size: 20px; font-weight:600;letter-spacing: 1px; line-height: 35px;" class="main-header">
 
 
-                            <div style="line-height: 35px">
+                            <div style="line-height: 35px;font-size: 28px;">
                                Activate your account!<br><br>
                             </div>
                         </td>
@@ -200,9 +200,9 @@
                                 <tr>
                                     <td align="center" style="color: #888888; font-size: 16px; line-height: 24px;">
 
-                                        <div style="line-height: 24px">
+                                        <div style="line-height: 24px;font-size: 14px;font-family: myriad-pro, sans-serif;">
 
-                                          <span style="color: #0d665c;"></span> Thanks for Signing up! <br> Please click below to activate your account!
+                                          <span style="color: #0d665c;"></span> Thanks for signing up. Please click below to activate your account!
                                         </div>
                                     </td>
                                 </tr>
@@ -270,7 +270,7 @@
                         <td align="center" style="color: #000000; font-size: 12px; line-height: 40px;">
 
                             <div style="line-height: 24px;font-size: 14px;">
-                               This link will be valid for 24 Hours.
+                               This link will be valid for 24 hours.
                             </div>
                         </td>
                     </tr>

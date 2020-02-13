@@ -16,7 +16,23 @@ use App\Mail\PasswordResetMail;
 
 class Logincontroller extends Controller
 {
+
+    public function findUsername()
+    {
+        $login = request()->input('email');
+ 
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+ 
+        request()->merge([$fieldType => $login]);
+ 
+        return $fieldType;
+    }
+
+    
+
     function login_page(Request $request){
+
+        
 		
         if(Auth::check()){
             return redirect('home');
@@ -24,18 +40,29 @@ class Logincontroller extends Controller
     	if($request->isMethod('get')){
     		return view('auth/login');
     	}else{
+
+
+
+            if($this->findUsername() == 'email'){
+                $validator = $request->validate([
+                    'email' => 'required|email',
+                    'password' => 'required|string|min:6|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
+                ]);
+            }else{
+                $validator = $request->validate([
+                    'username' => 'required|alpha_num|min:5|max:15',
+                    'password' => 'required|string|min:6|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
+                ]);
+            }
     		
-    		$validator = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:6|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
-        ]);
+    		
 
 
         if(! $validator) {
             return redirect()->back();
         }else{
         	$remember = $request->remember;
-            $data = array('email' => $request->email,'password' => $request->password);
+            $data = array($this->findUsername() => $request->email,'password' => $request->password);
         if(Auth::attempt($data,$remember)){
             if(Auth::user()->status == 1){
 				if(Auth::user()->hasRole('Admin')){
@@ -72,11 +99,12 @@ class Logincontroller extends Controller
     		return view('auth/register');
     	}else{
     		$validator = $request->validate([
-	            'first_name' => 'required|alpha|max:25',
-		        'last_name' => 'required|alpha|max:25',
+                'first_name' => 'required|alpha|min:2|max:15',
+                'last_name' => 'required|alpha|min:2|max:15',
+	            'username' => 'required|alpha_num|max:25|unique:users',
 		        'email' => 'email|unique:users',
 		        'password' => 'required|string|min:6|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-		        'confirm_password' => 'required|same:password|min:8|max:16',
+		        'confirm_password' => 'same:password',
 		        'terms_and_conditions' => 'required'
 	        ]);
            /* [
@@ -92,8 +120,10 @@ class Logincontroller extends Controller
 				 $md5email = md5($request->email);
 
             	 $user = new User;
+            $user->name = $request->username;
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
+            $user->username = $request->username;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->enc_email = $md5email;
@@ -117,7 +147,7 @@ class Logincontroller extends Controller
 
 			$details = [
 			    'detail'=>'detail',
-			    'name'  => ucwords(ucwords($request->first_name.' '.$request->last_name)),
+			    'name'  => ucwords(ucwords($request->username)),
 			    'email' =>$request->email,
 				'encemail' => $md5email
 			     ];
@@ -125,7 +155,7 @@ class Logincontroller extends Controller
             \Mail::to($request->email)->send(new RegistrationMail($details));
 
 
-			Session::flash('error','You have successfully registered , Please check your email to activate your account.');
+			Session::flash('error','You have successfully registered. Please check your email to activate your account.');
 			return redirect('login');
 	        }
     	}
@@ -159,7 +189,7 @@ class Logincontroller extends Controller
 
             $details = array(
                 'detail'=>'detail',
-                'name'  => ucwords(ucwords($db->first_name.' '.$db->last_name)),
+                'name'  => ucwords(ucwords($db->username)),
                 'email' =>$db->email
             );
 

@@ -136,7 +136,7 @@
         <tr>
             <td>
                 <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;">
-                    <!-- Pre-header for the newsletter template -->
+                    Pre-header for the newsletter template
                 </div>
             </td>
         </tr>

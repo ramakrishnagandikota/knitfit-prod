@@ -136,7 +136,7 @@
         <tr>
             <td>
                 <div style="overflow:hidden;display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;">
-                    Pre-header for the newsletter template
+                     <!-- Pre-header for the newsletter template  -->
                 </div>
             </td>
         </tr>
@@ -223,7 +223,7 @@
 
                                         <div style="line-height: 24px">
 
-                                            You're now part of a community that connects global knitters across the world. <span style="color: #0d665c;">Sign in</span> and explore all KnitFit has to offer
+                                            You are now part of a community that connects global knitters across the world. <span style="color: #0d665c;">Sign in</span> and explore all KnitFit has to offer
                                         </div>
                                     </td>
                                 </tr>

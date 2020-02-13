@@ -22,6 +22,11 @@ Route::group(['middleware' => 'web','prefix' => 'knitter'], function () {
 	Route::get('get-measurement-variables/{id}/{mp}','Knitter\KnitterMeasurementController@get_measurement_variables');
 
 	Route::get('measurements/confirmation/{id}','Knitter\KnitterMeasurementController@measurement_confirmation');
+Route::post('measurements/delete-picture','Knitter\KnitterMeasurementController@delete_picture');
+Route::post('measurements/delete-only-picture','Knitter\KnitterMeasurementController@delete_only_picture');
 
-	
+
+/* Project library routes */
+
+Route::get('project-library','Knitter\ProjectController@home');
 });

@@ -125,7 +125,7 @@
   position: fixed;
     margin: auto;
     top: 150px;
-
+left: 0px !important;
 }
 
 /* Safari */
@@ -148,6 +148,47 @@
     z-index: 1;
     padding: 0px;
   
+}
+.login-block{
+  margin: 0px !important;
+}
+
+/* sweet alert customizes css */
+  .swal2-icon.swal2-success [class^=swal2-success-line]{
+	  background-color: #0d665c !important;
+  }
+  .swal2-icon.swal2-success .swal2-success-ring{
+	  border:.25em solid rgb(13, 102, 92)
+  }
+  .swal2-styled.swal2-confirm {
+    
+    background-color: #0d665c !important;
+    color: #fff !important;
+    border: 1px solid #0d665c !important;
+  }
+  .swal2-icon.swal2-error [class^=swal2-x-mark-line]{
+	  background-color: #bc7c8f !important;
+  }
+  .swal2-icon.swal2-error {
+    border-color: #bc7c8f !important;
+    color: #bc7c8f !important;
+}
+.swal2-styled.swal2-cancel {
+    background-color: #bc7c8f !important;
+}
+.swal2-icon.swal2-warning {
+    border-color: #bc7c8f !important;
+    color: #bc7c8f !important;
+}
+.alert-success {
+    background-color: #fff;
+    border-color: #0d665c;
+    color: #0d665c;
+}
+.alert-danger {
+    background-color: #fff;
+    border-color: #bc7c8f;
+    color: #bc7c8f;
 }
  </style> 
 
