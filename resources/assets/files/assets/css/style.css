@@ -11177,7 +11177,7 @@ label,.card-header-img h4,.card-header-img h6{color: #6f6f6f;font-family: "Segoe
 #target{color:grey;font-size: 12px}
 .checked-img{height: 100px;width: 100px}
 .skills-list li{padding: 26px}
-.theme-logo{width: 104px}
+.theme-logo{width: 140px}
 .theme-row{background-color: #dad9d9;margin-left: 0px !important;margin-right: 0px !important;}
 .outline-row{background-color:transparent;border-bottom:1px solid #0d665c !important;margin-right: 0px;margin-left: 0px;}
 .theme-row h5 {color: #0d665c !important}
@@ -11869,4 +11869,4 @@ cursor: all-scroll;}
     position: absolute;
 }
 .m-r-60{margin-right: 60px;}
-.custom-padding{padding-top:0 !important;padding-left: 30px;}
+.custom-padding{padding-top:14px !important;padding-left: 30px;}
