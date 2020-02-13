@@ -48,7 +48,7 @@
                         <input type="text" name="username" class="form-control {{old('username') ? 'fill' : ''}}" value="{{old('username')}}" >
                         <i class="fa fa-info pophover" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="right" data-content="Username should contain only Alphabets and numbers and supports maximum lenght 25 characters"></i>
                         <span class="form-bar"></span>
-                        <label class="float-label">Choose Userame</label>
+                        <label class="float-label">Choose Username</label>
                          <span class="red">@if($errors->first('username')) {{$errors->first('username')}} @endif</span>
                     </div>
            
