@@ -105,7 +105,7 @@
                                     </div>
                                  </div>
 
-                                    
+                                   
 
                               </div>
 
@@ -117,7 +117,7 @@
                               
                                 </div>
                               </div>
-
+              <div id="percentComplete">0%</div>
                               <div class="col-lg-12">
                                  <button type="button" id="submit" class="btn btn-default theme-btn pull-right waves-effect m-r-10">Save</button>
                               </div>
@@ -301,6 +301,30 @@
    },
    contentType: false,
    processData:false,
+   xhr: function(){
+       var xhr = new window.XMLHttpRequest();
+         // Handle progress
+         //Upload progress
+       xhr.upload.addEventListener("progress", function(evt){
+           if (evt.lengthComputable) {
+              var percentComplete = evt.loaded / evt.total;
+              //Do something with upload progress
+              $("#percentComplete").html(percentComplete+' %');
+              //console.log(percentComplete);
+           }
+       }, false);
+       //Download progress
+       xhr.addEventListener("progress", function(evt){
+            if (evt.lengthComputable) {
+              var percentComplete = evt.loaded / evt.total;
+              //Do something with download progress
+              $("#percentComplete").html(percentComplete+' %');
+              console.log(percentComplete);
+            }
+       }, false);
+
+       return xhr;
+    },
    success: function(data)
    {
    if(data.path != 0){
