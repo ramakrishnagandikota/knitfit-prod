@@ -89,7 +89,7 @@ $(document).ready(function() {
         var nAnimIn = $(this).attr('data-animation-in');
         var nAnimOut = $(this).attr('data-animation-out');
 
-        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,"Project has been added to Archive");
+        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,"Project has been removed from Archive and Added back to Project Library");
     });
 
 });

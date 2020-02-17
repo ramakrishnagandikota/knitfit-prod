@@ -117,7 +117,6 @@
                               
                                 </div>
                               </div>
-              <div id="percentComplete">0%</div>
                               <div class="col-lg-12">
                                  <button type="button" id="submit" class="btn btn-default theme-btn pull-right waves-effect m-r-10">Save</button>
                               </div>
@@ -145,7 +144,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Your Measurements</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><u>Please review and confirm that these measurements are correct</u></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -154,8 +153,8 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-        <button type="button" onclick="savedata();" class="btn theme-btn btn-primary waves-effect waves-light">Submit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit measurements</button>
+        <button type="button" onclick="savedata();" class="btn theme-btn btn-primary waves-effect waves-light">Confirm measurements</button>
       </div>
     </div>
   </div>
@@ -225,8 +224,8 @@
 
 
 .box{
-  height: 205px;
-  width: 152px;
+      height: 240px;
+    width: 175px;
   margin:3px;
     padding: 10px;
     border: 1px solid #e1e1e1;
@@ -247,6 +246,9 @@
 }
 .red{
   color: red;
+}
+.full-width{
+  width: 100%;
 }
 </style>
 
@@ -301,36 +303,13 @@
    },
    contentType: false,
    processData:false,
-   xhr: function(){
-       var xhr = new window.XMLHttpRequest();
-         // Handle progress
-         //Upload progress
-       xhr.upload.addEventListener("progress", function(evt){
-           if (evt.lengthComputable) {
-              var percentComplete = evt.loaded / evt.total;
-              //Do something with upload progress
-              $("#percentComplete").html(percentComplete+' %');
-              //console.log(percentComplete);
-           }
-       }, false);
-       //Download progress
-       xhr.addEventListener("progress", function(evt){
-            if (evt.lengthComputable) {
-              var percentComplete = evt.loaded / evt.total;
-              //Do something with download progress
-              $("#percentComplete").html(percentComplete+' %');
-              console.log(percentComplete);
-            }
-       }, false);
-
-       return xhr;
-    },
+   
    success: function(data)
    {
    if(data.path != 0){
 
 
-var ip = '<div class="box"><img src="'+data.path+'" style="width: 138px;height: 175px;margin-top: -5px;margin-left: -4px;"><span style="margin-top: 8px;"><a href="javascript:;" class="green icon1 ">Success</a><a href="#" data-url="'+data.path1+'" class="fa fa-trash-o pull-right icon2 delete-image"></a></span></div>';
+var ip = '<div class="box"><img src="'+data.path+'" style="width: 150px;height: 200px;margin-top: -5px;margin-left: -4px;"><span style="margin-top: 8px;"><a href="javascript:;" class="green icon1 ">Success</a><a href="#" data-url="'+data.path1+'" class="fa fa-trash-o pull-right icon2 delete-image"></a></span></div>';
 
 $("#imageplace").removeClass('hide').html(ip);
 $("#image").addClass('hide');
@@ -498,26 +477,26 @@ $("#image").addClass('hide');
     var new_str;
     var obj = JSON.stringify(Data);
     var aa = JSON.parse(obj);
-    var cc = '<div class="row">';
+    var cc = '<div class="row card"><div class="col-lg-12"><div class="container-fluid row">';
     for ($i = 2; $i < aa.length; $i++){
       var heading = aa[$i]['name'].replace(/[^a-zA-Z ]/g, " ");
       new_str = heading.charAt(0).toUpperCase()+heading.slice(1);
       if($i == 2){
-        cc+='<h5 class="col-md-12 card-header-text theme-heading">Body size</h5>';
+        cc+='<p class="f-20 full-width">Body size</p><hr>';
       }else if($i == 8){
-        cc+='<h5 class="col-md-12 card-header-text theme-heading">Body length</h5>';
+        cc+='<p class="f-20 full-width">Body length</p><hr>';
       }else if($i == 10){
-        cc+='<h5 class="col-md-12 card-header-text theme-heading">Arm size</h5>';
+        cc+='<p class="f-20 full-width">Arm size</p><hr>';
       }else if($i == 14){
-        cc+='<h5 class="col-md-12 card-header-text theme-heading">Arm length</h5>';
+        cc+='<p class="f-20 full-width">Arm length</p><hr>';
       }else if($i == 17){
-        cc+='<h5 class="col-md-12 card-header-text theme-heading">Neck and shoulders</h5>';
+        cc+='<p class="f-20 full-width">Neck and shoulders</p><hr>';
       }
 
-      cc+='<br><div class="col-lg-6"><div class="row"><div class="col-lg-6"><label>'+new_str+'</label></div><div class="col-lg-6">'+aa[$i]['value']+'</div></div></div>';
+      cc+='<br><div class="col-lg-3"><div class="row"><div class="col-lg-6"><label class="f-w-600">'+new_str+'</label></div><div class="col-lg-6"><label>'+aa[$i]['value']+'"</label></div></div></div>';
       //cc+=aa[$i]['name']+' -- '+aa[$i]['value'];
     }
-    cc+='</div>';
+    cc+='</div></div></div>';
     //alert(cc);
     
     $("#confirmVariables").html(cc);

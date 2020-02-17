@@ -11,7 +11,7 @@
 <div class="page-body">
   <div class="row">
      <div class="col-xl-4">
-        <h5 class="theme-heading"><a href="Create-Project.html"><i class="fa fa-home theme-heading m-r-10"></i></a>Project Library </h5>
+        <h5 class="theme-heading"><a href="Create-Project.html"><i class="fa fa-home theme-heading m-r-10"></i></a> Project Library </h5>
      </div>
      <div class="col-xl-8 text-right tabber">
         <a href="Create-Project.html" class="btn btn-theme tablike-bt-fill waves-effect">Create Project</a>
@@ -27,62 +27,39 @@
         <h5 class="card-header-text m-b-20 text-muted">Available Patterns</h5>
         <div class="card-block">
            <div class="row">
+            @if($orders->count() > 0)
               <ul >
-                 <li>
-                    <div class="col-md-12 m-b-20">
-                       <div class="card-sub-custom">
-                          <div class="card-block">
-                             <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/The Boyfriend Sweater.jpg') }}" alt="round-img"></div>
-                                <div class="col-lg-8">
-                                   <h6 class="card-title">Child’s Mock Cable Sweater</h6>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="card-footer-custom">
-                             <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
-                                <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
-                                <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                   <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
-                                   <a class="dropdown-item waves-light waves-effect" href="#!" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight" >Add To Archive</a>
-                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
-                                </div>
-                                <!-- end of dropdown menu -->
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </li>
-                 <li>
-                    <div class="col-md-12 m-b-20">
-                       <div class="card-sub-custom">
-                          <div class="card-block">
-                             <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/Off-the-Shoulder Ruffle Top.jpg') }}" alt="round-img"></div>
-                                <div class="col-lg-8">
-                                   <h6 class="card-title">Off the Shoulder Ruffle Top</h6>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="card-footer-custom">
-                             <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
-                                <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
-                                <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                   <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
-                                   <a class="dropdown-item waves-light waves-effect" href="#!" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight">Add To Archive</a>
-                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
-                                </div>
-                                <!-- end of dropdown menu -->
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </li>
-                 
-                
+@foreach($orders as $ord)
+<li>
+  <div class="col-md-12 m-b-20">
+      <div class="card-sub-custom">
+          <div class="card-block">
+              <div class="row">
+             <div class="col-lg-4"><img class="img-fluid" src="{{ $ord->image_medium }}" style="height: 100px;" alt="round-img"></div>
+             <div class="col-lg-8"><h6 class="card-title">{{ucfirst($ord->product_name)}}</h6>     
+      </div>
+          </div>
+              </div>
+              <div class="card-footer-custom">
+                  <div class="dropdown-secondary dropdown text-right">
+                      <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">{{date('d M,Y',strtotime($ord->created_at))}}</span></span>
+                   <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
+                   <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                       <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
+                       <a class="dropdown-item waves-light waves-effect note" href="#!" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight" >Add To archive</a>
+                       
+                   </div>
+                   <!-- end of dropdown menu -->
+               </div>
+           </div>
+      </div>
+  </div>
+</li>
+@endforeach
               </ul>
+              @else
+          <p>No available orders</p>
+              @endif
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -94,21 +71,23 @@
         <h5 class="card-header-text m-b-20 text-muted">Generated Patterns</h5>
         <div class="card-block">
            <div class="row">
+            @if($generatedpatterns->count() > 0)
               <ul  id="sortable2" class='droptrue'>
-                 <li>
+                @foreach($generatedpatterns as $gp)
+                 <li class="" id="generatedpatterns">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/Off-the-Shoulder Ruffle Top.jpg') }}" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $gp->image_medium }}" style="height: 100px;" alt="round-img"></div>
                                 <div class="col-lg-8">
-                                   <h6 class="card-title">Marsha's Lacy Tee</h6>
+                                   <h6 class="card-title">{{ucfirst($gp->product_name)}}</h6>
                                 </div>
                              </div>
                           </div>
                           <div class="card-footer-custom">
                              <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
+                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">{{date('d M, Y',strtotime($gp->updated_at))}}</span></span>
                                 <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
                                 <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                    <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
@@ -121,33 +100,11 @@
                        </div>
                     </div>
                  </li>
-                 <li>
-                    <div class="col-md-12 m-b-20">
-                       <div class="card-sub-custom">
-                          <div class="card-block">
-                             <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/Off-the-Shoulder Ruffle Top.jpg') }}" alt="round-img"></div>
-                                <div class="col-lg-8">
-                                   <h6 class="card-title">Off the Shoulder Ruffle Top</h6>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="card-footer-custom">
-                             <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
-                                <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
-                                <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                   <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
-                                   <a class="dropdown-item waves-light waves-effect" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight" href="#!">Add To Archive</a>
-                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
-                                </div>
-                                <!-- end of dropdown menu -->
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </li>
+                 @endforeach
               </ul>
+              @else
+              <p>No Generated patterns</p>
+              @endif
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -159,21 +116,23 @@
         <h5 class="card-header-text m-b-20 text-muted">Work in Progress</h5>
         <div class="card-block">
            <div class="row">
+              @if($workinprogress->count() > 0)
               <ul  id="sortable3" class='droptrue'>
-                 <li>
+                @foreach($workinprogress as $wp)
+                 <li class="" id="workinprogress">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/Off-the-Shoulder Ruffle Top.jpg') }}" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $wp->image_medium }}" style="height: 100px;" alt="round-img"></div>
                                 <div class="col-lg-8">
-                                   <h6 class="card-title">Off the Shoulder Ruffle Top</h6>
+                                   <h6 class="card-title">{{ucfirst($wp->product_name)}}</h6>
                                 </div>
                              </div>
                           </div>
                           <div class="card-footer-custom">
                              <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
+                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">{{date('d M, Y',strtotime($wp->updated_at))}}</span></span>
                                 <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
                                 <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                    <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
@@ -186,7 +145,11 @@
                        </div>
                     </div>
                  </li>
+                 @endforeach
               </ul>
+              @else
+              <p>No work in progress projects</p>
+              @endif
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -198,47 +161,23 @@
         <h5 class="card-header-text m-b-20 text-muted">Completed</h5>
         <div class="card-block">
            <div class="row">
+              @if($completed->count() > 0)
               <ul  id="sortable4" class='droptrue'>
-                 <li>
+                @foreach($completed as $com)
+                 <li class="" id="completed">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/Off-the-Shoulder Ruffle Top.jpg') }}" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $com->image_medium }}" style="height: 100px;" alt="round-img"></div>
                                 <div class="col-lg-8">
-                                   <h6 class="card-title">Marsha's Lacy Tee</h6>
+                                   <h6 class="card-title">{{ucfirst($com->product_name)}}</h6>
                                 </div>
                              </div>
                           </div>
                           <div class="card-footer-custom">
                              <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
-                                <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
-                                <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                   <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
-                                   <a class="dropdown-item waves-light waves-effect" href="#!" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight">Add To Archive</a>
-                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
-                                </div>
-                                <!-- end of dropdown menu -->
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </li>
-                 <li>
-                    <div class="col-md-12 m-b-20">
-                       <div class="card-sub-custom">
-                          <div class="card-block">
-                             <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ asset('resources/assets/files/assets/images/user-card/2.jpg') }}" alt="round-img"></div>
-                                <div class="col-lg-8">
-                                   <h6 class="card-title">Peekaboo</h6>
-                                </div>
-                             </div>
-                          </div>
-                          <div class="card-footer-custom">
-                             <div class="dropdown-secondary dropdown text-right">
-                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">09 June, 19</span></span>
+                                <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">{{date('d M, Y',strtotime($com->updated_at))}}</span></span>
                                 <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
                                 <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                    <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
@@ -251,7 +190,11 @@
                        </div>
                     </div>
                  </li>
+                 @endforeach
               </ul>
+              @else
+              <p>No completed projects</p>
+              @endif
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -274,7 +217,9 @@
   }
 
 </style>
-
+<script type="text/javascript">
+  var URL = '{{url("/")}}';
+</script>
 <!-- Notification.css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/pages/notification/notification.css') }}">
    <!-- Animate.css -->

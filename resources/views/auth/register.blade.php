@@ -98,7 +98,7 @@
                         <label class="micro-label">
                             <input type="checkbox" name="terms_and_conditions" class="form-control-danger" value="1">
                             <span class="cr custom-chkbox"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                            <span class="text-inverse">I have read and I accept the <a href="#" class="micro-label" style="color:#0d665c"><u>Terms &amp; Conditions</u>.</a></span>
+                            <span class="text-inverse">I have read and accept the <a href="#" class="micro-label" style="color:#0d665c"><u>Terms &amp; Conditions</u>.</a></span>
                             <br>
                             <span class="red">@if($errors->first('terms_and_conditions')) {{$errors->first('terms_and_conditions')}} @endif</span>
                         </label>

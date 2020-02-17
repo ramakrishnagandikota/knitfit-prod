@@ -37,7 +37,7 @@ $(document).ready(function(){
         showThumbs: true,
         theme: "dragdropbox",
         templates: {
-            box: '<ul class="jFiler-items-list jFiler-items-grid"><a style="position: absolute;bottom: 32px;padding:4px 6px 4px 6px" class="theme-outline-btn waves-effect waves-light">Upload</a></ul>',
+            box: '<ul class="jFiler-items-list jFiler-items-grid"><li><a style="padding:4px 6px 4px 6px;margin-top: 62px;margin-bottom: 20px;" class="theme-outline-btn waves-effect waves-light">Upload</a></li></ul>',
             item: '<li class="jFiler-item">\
                         <div class="jFiler-item-container">\
                             <div class="jFiler-item-inner">\
@@ -98,7 +98,7 @@ $(document).ready(function(){
             drop: null,
         },
         uploadFile: {
-            url: URL+"/knitter/upload-measurement-picture",
+            url: "../files/assets/pages/filer/php/ajax_upload_file.php",
             data: null,
             type: 'POST',
             enctype: 'multipart/form-data',
@@ -130,7 +130,7 @@ $(document).ready(function(){
         afterShow: null,
         onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
             var file = file.name;
-            $.post("{{url('knitter/upload-measurement-picture')}}", {file: file});
+            $.post('../files/assets/pages/filer/php/ajax_remove_file.php', {file: file});
         },
         onEmpty: null,
         options: null,

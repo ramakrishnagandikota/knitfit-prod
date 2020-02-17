@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use App\Project;
+use App\Orders;
+use App\Booking_process;
 
 class User extends Authenticatable
 {
@@ -64,47 +67,20 @@ class User extends Authenticatable
         return $this->hasMany('App\Feedback','user_id')->orderBy('id','desc');
     }
 
-    function profile(){
-    return $this->hasOne('App\Userprofile');
-   }
-
-   function college(){
-    return $this->hasMany('App\Usercollege');
-   }
-
-   function family(){
-    return $this->hasMany('App\Userfamily');
-   }
-
-   function workplace(){
-    return $this->hasMany('App\Userworkplace');
-   }
-
-   function places(){
-    return $this->hasMany('App\Userplaces');
-   }
-
-
-    function project_active(){
-      $p = $this->hasMany('App\Project');
-      $p->getQuery()->where('status','=', 2);
-      return $p;
+    function projects(){
+      return $this->hasMany(Project::class);
     }
-
-   function project_complete(){
-      $p = $this->hasMany('App\Project');
-      $p->getQuery()->where('status','=', 1);
-      return $p;
-   }
-
-   function project_ufo(){
-      $p = $this->hasMany('App\Project');
-      $p->getQuery()->where('status','=', 0);
-      return $p;
-   }
 
    function measurements(){
     return $this->hasMany('App\UserMeasurements');
+   }
+
+   function orders(){
+    return $this->hasMany(Orders::class);
+   }
+
+   function bookings(){
+    return $this->hasMany(Booking_process::class)->where('product_category',1);
    }
     
 }

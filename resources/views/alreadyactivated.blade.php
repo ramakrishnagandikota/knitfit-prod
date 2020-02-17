@@ -9,7 +9,7 @@
                 <div class="card-header"><strong>Account activated</strong></div>
 
                 <div class="card-body">
-                   Your account is already activated. 
+                   Your account is already activated.
                    <a href="{{url('login')}}"> Click here to log in</a>
                 </div>
             </div>

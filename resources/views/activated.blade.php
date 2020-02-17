@@ -8,9 +8,9 @@
             <div class="card">
                 <div class="card-header"><strong>Account activated</strong></div>
 
-                <div class="card-body">
-                   You have successfully activated your account . 
-                   <a href="{{url('login')}}"> Click here to log in</a>
+                <div class="card-body" style="text-align: center;">
+                   You have successfully activated your account.
+                   <a href="{{url('login')}}"> Click here to log in.</a>
                 </div>
             </div>
         </div>

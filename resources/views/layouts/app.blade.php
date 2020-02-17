@@ -149,9 +149,6 @@ left: 0px !important;
     padding: 0px;
   
 }
-.login-block{
-  margin: 0px !important;
-}
 
 /* sweet alert customizes css */
   .swal2-icon.swal2-success [class^=swal2-success-line]{
@@ -189,6 +186,9 @@ left: 0px !important;
     background-color: #fff;
     border-color: #bc7c8f;
     color: #bc7c8f;
+}
+.theme-logo {
+    width: 150px !important;
 }
  </style> 
 
