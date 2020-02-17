@@ -145,7 +145,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Your Measurements ffjh</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Your Measurements</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -225,7 +225,7 @@
 
 
 .box{
-  height: 152px;
+  height: 205px;
   width: 152px;
   margin:3px;
     padding: 10px;
@@ -330,7 +330,7 @@
    if(data.path != 0){
 
 
-var ip = '<div class="box"><img src="'+data.path+'" style="width: 138px;height: 113px;"><span style="margin-top: 8px;"><a href="javascript:;"  class="green icon1 ">Success</a><a href="#" data-url="'+data.path1+'" class="fa fa-trash-o pull-right icon2 delete-image"></a></span></div>';
+var ip = '<div class="box"><img src="'+data.path+'" style="width: 138px;height: 175px;margin-top: -5px;margin-left: -4px;"><span style="margin-top: 8px;"><a href="javascript:;" class="green icon1 ">Success</a><a href="#" data-url="'+data.path1+'" class="fa fa-trash-o pull-right icon2 delete-image"></a></span></div>';
 
 $("#imageplace").removeClass('hide').html(ip);
 $("#image").addClass('hide');
