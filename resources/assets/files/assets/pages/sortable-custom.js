@@ -71,41 +71,27 @@
         revert: true,
         forcePlaceholderSize: true,
         helper: function (e, item) {
-            //console.log('parent-helper');
-            //console.log(item);
+            console.log('parent-helper');
+            console.log(item);
             if(!item.hasClass('selected'))
                item.addClass('selected');
             var elements = $('.selected').not('.ui-sortable-placeholder').clone();
             var helper = $('<ul/>');
-            //var started,ended;
             item.siblings('.selected').addClass('hidden');
             return helper.append(elements);
         },
         start: function (e, ui) {
-         // alert('drag started');
             var elements = ui.item.siblings('.selected.hidden').not('.ui-sortable-placeholder');
             ui.item.data('items', elements);
         },
         receive: function (e, ui) {
-          //alert('drag received');
             ui.item.before(ui.item.data('items'));
         },
         stop: function (e, ui) {
-          //console.log(ui);
             ui.item.siblings('.selected').removeClass('hidden');
             $('.selected').removeClass('selected');
             $('.se').removeClass('se');
             $(".d_n").addClass('d_b');
-            var ended = ui.item.parent().attr('id');
-            if(ended == 'sortable2'){
-              var status = 1;
-            }else if(ended == 'sortable3'){
-              var status = 2
-            }else{
-              var status = 3;
-            }
-
-            alert(URL+' - '+status);
         },
       //  update: updatePostOrder
     });

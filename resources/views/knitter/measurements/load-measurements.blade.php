@@ -5,11 +5,12 @@
 				
 
                 <div class="col-lg-6 col-xl-2 col-md-6 measurementbox id_{{$ms->id}}" id="id_{{base64_encode($ms->id)}}">
-                    <div class="card rounded-card custom-card overlay-card">
+                    <div class="card rounded-card custom-card">
                         <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
                     
                         <div class="user-content text-left">
                             <h4 class="m-l-10 text-center"> <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h4>
+                            <p class="m-b-10 m-l-10 text-muted m-r-10">The description regarding Measurements will goes here</p>
                             
                             <!-- <p class="m-b-0 text-muted">The Boyfriend Sweater is a true classic,it is extremely comfortable and not at all fussy!</p> -->
                             <div class="editable-items">

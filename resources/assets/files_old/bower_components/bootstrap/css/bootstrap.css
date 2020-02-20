@@ -5544,6 +5544,7 @@ button.close {
   font-size: 0.875rem;
   word-wrap: break-word;
   opacity: 0;
+  background-color: white;
 }
 
 .tooltip.show {
@@ -5627,9 +5628,9 @@ button.close {
 .tooltip-inner {
   max-width: 200px;
   padding: 0.25rem 0.5rem;
-  color: #fff;
+  color: #000000;
   text-align: center;
-  background-color: #000;
+  background-color: white;
   border-radius: 0.25rem;
 }
 

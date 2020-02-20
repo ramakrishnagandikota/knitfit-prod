@@ -33,11 +33,11 @@ $(document).ready(function(){
         limit: null,
         maxSize: null,
         extensions: null,
-        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag & Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn btn theme-btn waves-effect waves-light">Browse Files</a></div></div>',
+        changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"></div><a class="theme-outline-btn waves-effect waves-light" style="padding:4px 6px 4px 6px">Browse Files</a></div></div>',
         showThumbs: true,
         theme: "dragdropbox",
         templates: {
-            box: '<ul class="jFiler-items-list jFiler-items-grid"><a style="position: absolute;bottom: 32px;" class="jFiler-input-choose-btn btn theme-btn waves-effect waves-light">Upload</a></ul>',
+            box: '<ul class="jFiler-items-list jFiler-items-grid"><li><a style="padding:4px 6px 4px 6px;margin-top: 62px;margin-bottom: 20px;" class="theme-outline-btn waves-effect waves-light">Upload</a></li></ul>',
             item: '<li class="jFiler-item">\
                         <div class="jFiler-item-container">\
                             <div class="jFiler-item-inner">\

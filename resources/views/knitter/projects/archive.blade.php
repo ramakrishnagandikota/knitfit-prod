@@ -11,11 +11,11 @@
 <div class="page-body">
   <div class="row">
      <div class="col-xl-4">
-        <h5 class="theme-heading"><a href="Create-Project.html"><i class="fa fa-home theme-heading m-r-10"></i></a> Project Library </h5>
+        <h5 class="theme-heading"><a href="Create-Project.html"><i class="fa fa-home theme-heading m-r-10"></i></a> My archive </h5>
      </div>
      <div class="col-xl-8 text-right tabber">
         <a href="{{url('knitter/create-project')}}" class="btn btn-theme tablike-bt-fill waves-effect">Create Project</a>
-        <a href="{{url('knitter/project-library/archive')}}" class="btn btn-default tablike-bt-outlined waves-effect">My Archive</a>
+        <a href="{{url('knitter/project-library')}}" class="btn btn-default tablike-bt-outlined waves-effect">Project library</a>
         <!--a href="#!" class="btn btn-default tablike-bt-outlined waves-effect">Notes</!--a>
            <a href="#!" class="btn btn-default tablike-bt-fill waves-effect">Progress</a> -->
      </div>
@@ -90,9 +90,9 @@
                                 <span class="m-r-60"><i class="fa fa-calendar-check-o text-muted m-r-10 f-12"></i><span class="text-muted f-12">{{date('d M, Y',strtotime($gp->updated_at))}}</span></span>
                                 <button class="btn-vert-toggle text-muted" type="button" id="dropdown6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-options-vertical"></i></button>
                                 <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                                  <!-- <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a> -->
+                                   <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
                                    <a class="dropdown-item waves-light waves-effect" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight" href="#!">Add To Archive</a>
-                                   <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a>
+                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
                                 </div>
                                 <!-- end of dropdown menu -->
                              </div>
@@ -103,9 +103,7 @@
                  @endforeach
               </ul>
               @else
-              <ul  id="sortable2" class='droptrue'>
-
-              </ul>
+              <p>No Generated patterns</p>
               @endif
            </div>
         </div>
@@ -139,7 +137,7 @@
                                 <div class="dropdown-menu notifications" aria-labelledby="dropdown6" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                    <a class="dropdown-item waves-light waves-effect" data-toggle="modal" data-target="#myModal"> Post on the wall</a>
                                    <a class="dropdown-item waves-light waves-effect" data-type="success" data-from="top" data-animation-in="animated fadeInRight" data-animation-out="animated fadeOutRight" href="#!">Add To Archive</a>
-                                   <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a>
+                                   <!-- <a class="dropdown-item waves-light waves-effect" href="#!"> Delete</a> -->
                                 </div>
                                 <!-- end of dropdown menu -->
                              </div>
@@ -150,9 +148,7 @@
                  @endforeach
               </ul>
               @else
-              <ul  id="sortable3" class='droptrue'>
-
-              </ul>
+              <p>No work in progress projects</p>
               @endif
            </div>
         </div>
@@ -197,9 +193,7 @@
                  @endforeach
               </ul>
               @else
-              <ul  id="sortable4" class='droptrue'>
-
-              </ul>
+              <p>No completed projects</p>
               @endif
            </div>
         </div>

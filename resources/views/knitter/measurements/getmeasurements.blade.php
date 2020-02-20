@@ -16,7 +16,7 @@
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section3">
                               <h5 class="card-header-text">Body Size</h5>
                            </div>
-                           <div class="col-lg-1 m-t-15">
+                           <div class="col-lg-1 m-t-15" data-toggle="collapse" data-target="#section3">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
                               </button>
                            </div>
@@ -51,6 +51,13 @@
                               <div class="col-md-2">
                                  <div class="form-group">
                                     <label for="int1">{{ucfirst($name)}} 
+                                       <span class="mytooltip tooltip-effect-2">
+                                       <span class="tooltip-item">?</span>
+                                       <span class="tooltip-content clearfix">
+                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
+                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
+                                       </span>
+                                       </span>
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12 ui-widget">
@@ -61,13 +68,7 @@
                                           </select>
                                           <span class="red {{str_replace(' ','_',$namesmall)}}"></span>
                                        </div>
-                                       <span class="mytooltip tooltip-effect-2">
-                                       <span class="tooltip-item">?</span>
-                                       <span class="tooltip-content clearfix">
-                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
-                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
-                                       </span>
-                                       </span>
+                                       
                                     </div>
                                  </div>
                               </div>
@@ -83,7 +84,7 @@
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section4">
                               <h5 class="card-header-text">Body length</h5>
                            </div>
-                           <div class="col-lg-1 m-t-15">
+                           <div class="col-lg-1 m-t-15" data-toggle="collapse" data-target="#section4" >
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
                               </button>
                            </div>
@@ -113,6 +114,13 @@
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label for="int1">{{ucfirst($name1)}} 
+                                       <span class="mytooltip tooltip-effect-2">
+                                       <span class="tooltip-item">?</span>
+                                       <span class="tooltip-content clearfix">
+                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
+                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
+                                       </span>
+                                       </span>
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -123,13 +131,7 @@
                                           </select>  
                                           <span class="red {{str_replace(' ','_',$namesmall1)}}"></span>
                                        </div>
-                                       <span class="mytooltip tooltip-effect-2">
-                                       <span class="tooltip-item">?</span>
-                                       <span class="tooltip-content clearfix">
-                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
-                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
-                                       </span>
-                                       </span>
+                                       
                                     </div>
                                  </div>
                               </div>
@@ -143,7 +145,7 @@
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section5">
                               <h5 class="card-header-text">Arm size</h5>
                            </div>
-                           <div class="col-lg-1 m-t-15">
+                           <div class="col-lg-1 m-t-15" data-toggle="collapse" data-target="#section5">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
                               </button>
                            </div>
@@ -172,7 +174,13 @@
 
                               <div class="col-md-3">
                                  <div class="form-group">
-                                    <label for="int1">{{ucfirst($name2)}}                                                                                                                       
+                                    <label for="int1">{{ucfirst($name2)}}             <span class="mytooltip tooltip-effect-2">
+                                       <span class="tooltip-item">?</span>
+                                       <span class="tooltip-content clearfix">
+                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
+                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
+                                       </span>
+                                       </span>      
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -183,13 +191,7 @@
                                           </select>  
                                           <span class="red {{str_replace(' ','_',$namesmall2)}}"></span>
                                        </div>
-                                       <span class="mytooltip tooltip-effect-2">
-                                       <span class="tooltip-item">?</span>
-                                       <span class="tooltip-content clearfix">
-                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
-                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
-                                       </span>
-                                       </span>
+                                       
                                     </div>
                                  </div>
                               </div>
@@ -203,7 +205,7 @@
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section6">
                               <h5 class="card-header-text">Arm length</h5>
                            </div>
-                           <div class="col-lg-1 m-t-15">
+                           <div class="col-lg-1 m-t-15" data-toggle="collapse" data-target="#section6">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
                               </button>
                            </div>
@@ -232,6 +234,13 @@
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label for="int1">{{ucfirst($name3)}} 
+                                       <span class="mytooltip tooltip-effect-2">
+                                       <span class="tooltip-item">?</span>
+                                       <span class="tooltip-content clearfix">
+                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
+                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
+                                       </span>
+                                       </span>
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -242,13 +251,7 @@
                                           </select> 
                                           <span class="red {{str_replace(' ','_',$namesmall3)}}"></span> 
                                        </div>
-                                       <span class="mytooltip tooltip-effect-2">
-                                       <span class="tooltip-item">?</span>
-                                       <span class="tooltip-content clearfix">
-                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
-                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
-                                       </span>
-                                       </span>
+                                       
                                     </div>
                                  </div>
                               </div>
@@ -263,7 +266,7 @@
                            <div class="card-header accordion col-lg-11" data-toggle="collapse" data-target="#section7">
                               <h5 class="card-header-text">Neck and shoulders</h5>
                            </div>
-                           <div class="col-lg-1 m-t-15">
+                           <div class="col-lg-1 m-t-15" data-toggle="collapse" data-target="#section7">
                               <i class="fa fa-caret-down pull-right micro-icons"></i>
                               </button>
                            </div>
@@ -292,6 +295,13 @@
                               <div class="col-md-3">
                                  <div class="form-group">
                                     <label for="int1">{{ucfirst($name4)}}
+                                       <span class="mytooltip tooltip-effect-2">
+                                       <span class="tooltip-item">?</span>
+                                       <span class="tooltip-content clearfix">
+                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
+                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
+                                       </span>
+                                       </span>
                                     </label>
                                     <div class="row">
                                        <div class="col-md-12">
@@ -302,13 +312,7 @@
                                           </select> 
                                           <span class="red {{str_replace(' ','_',$namesmall4)}}"></span>
                                        </div>
-                                       <span class="mytooltip tooltip-effect-2">
-                                       <span class="tooltip-item">?</span>
-                                       <span class="tooltip-content clearfix">
-                                       <img src="../../files/assets/images/tooltip/Euclid.png" alt="Ecluid.png">
-                                       <span class="tooltip-text">Also known as Euclid of andria, was a Greek mathematician, often referred.</span>
-                                       </span>
-                                       </span>
+                                       
                                     </div>
                                  </div>
                               </div>

@@ -10808,7 +10808,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataT
 }
 
 thead {
-    background-color: #e1ddee;
+   
     text-align: center;
 }
 
@@ -11743,7 +11743,7 @@ position: absolute;
     body * {
       visibility: hidden;
     }
-    #toogleAccordion,#export-PDF,#commentBox,#commentBox .fa-comment{visibility: hidden;}
+    #toogleAccordion,#export-PDF,#commentBox,#commentBox .fa-pencil-square-o{visibility: hidden;}
     #accordion * {
       visibility: visible;
       height: auto!important;
@@ -11768,7 +11768,7 @@ position: absolute;
 }
 .no-bg:hover{box-shadow: 0px 0px 0px 0px #f2f2f2;text-align: center;border: .2px solid transparent}
 .no-bg{text-align: center;box-shadow: none;margin: 0 0}
-.fa-comment{ -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
+.fa-pencil-square-o{ -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
     animation: mymove 2s infinite;}
 @keyframes mymove {
     from {transform: scale(1.2) rotate(0.1deg);;}
@@ -11939,7 +11939,7 @@ cursor: all-scroll;}
 .success-text{color: #0d665c;font-size: 20px;}
 .theme-text{color: #0d665c}
 .fa-check-circle{font-size: 36px;}
-.payment-box{padding: 60px;}
+.payment-box{margin: 0 auto;}
 .theme-text-danger{color: #c14d7d;}
 .failure-text{color: #c14d7d;font-size: 36px;}
 .thumb-column
@@ -11992,5 +11992,5 @@ cursor: all-scroll;}
     margin-top: 28px;
   }
   .thumb-name{font-size: 11px;font-weight: 600;margin-left: 3px;}
-
+  .form-control:focus{box-shadow: none;}
   

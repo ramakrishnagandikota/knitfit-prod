@@ -24,7 +24,7 @@
                                            </div>
                                         </div>
                                    <!-- round card start -->
-                                   <div class="row users-card">
+            <div class="row users-card justify-content-center m-t-10">
 
    	@if($meas->count() > 0)
 
@@ -38,22 +38,21 @@
     }
     ?>
         
-        <div class="col-lg-6 col-xl-2 col-md-6 measurementbox id_{{$ms->id}}" id="id_{{base64_encode($ms->id)}}">
-                    <div class="card rounded-card custom-card overlay-card">
-                        <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
-                    
-                        <div class="user-content text-left">
-                            <h4 class="m-l-10 text-center"> <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h4>
-                            
-                            <!-- <p class="m-b-0 text-muted">The Boyfriend Sweater is a true classic,it is extremely comfortable and not at all fussy!</p> -->
-                            <div class="editable-items">
-                              <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}" ><i class="fa fa-pencil"></i></a>
-                              <i class="fa fa-trash getId" data-id="{{base64_encode($ms->id)}}" data-toggle="modal" data-dismiss="modal" data-target="#child-Modal"></i>
-                          </div>
-                        </div>
-                      
-                    </div>
-                </div>
+<div class="col-lg-6 col-xl-2 col-md-6 measurementbox id_{{$ms->id}}" id="card{{$ms->id}}" >
+    <div class="card rounded-card custom-card">
+        <img class="img-fluid" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/171X257') }}" alt="round-img">
+    
+        <div class="user-content text-left">
+            <h6 class="m-l-10"> <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h6>
+            
+            <div class="editable-items">
+              <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}" ><i class="fa fa-pencil"></i></a>
+              <i class="fa fa-trash getId" data-id="{{base64_encode($ms->id)}}" data-toggle="modal" data-dismiss="modal" data-target="#child-Modal"></i>
+          </div>
+        </div>
+      
+    </div>
+</div>
             @endforeach
 
             @else

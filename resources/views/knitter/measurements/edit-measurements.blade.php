@@ -445,26 +445,60 @@ $("#image").addClass('hide');
     var new_str;
     var obj = JSON.stringify(Data);
     var aa = JSON.parse(obj);
-    var cc = '<div class="row card"><div class="col-lg-12"><div class="container-fluid row">';
+    var cc = '<div class="table-responsive"><table class="table table-styling confrim-measurement table-info">';
     for ($i = 2; $i < aa.length; $i++){
       var heading = aa[$i]['name'].replace(/[^a-zA-Z ]/g, " ");
       new_str = heading.charAt(0).toUpperCase()+heading.slice(1);
+
+      
+
       if($i == 2){
-        cc+='<p class="f-20 full-width" >Body size</p><hr>';
+        cc+='<thead><tr><th class="t-heading">Body size</th><th></th><th></th><th></th></tr></thead><tbody>';
       }else if($i == 8){
-        cc+='<p class="f-20 full-width">Body length</p><hr>';
+        cc+='<thead><tr><th class="t-heading">Body length</th><th></th><th></th><th></th></tr></thead><tbody>';
       }else if($i == 10){
-        cc+='<p class="f-20 full-width">Arm size</p><hr>';
+        cc+='<thead><tr><th class="t-heading">Arm size</th><th></th><th></th><th></th></tr></thead><tbody>';
       }else if($i == 14){
-        cc+='<p class="f-20 full-width">Arm length</p><hr>';
+        cc+='<thead><tr><th class="t-heading">Arm length</th><th></th><th></th><th></th></tr></thead><tbody>';
       }else if($i == 17){
-        cc+='<p class="f-20 full-width">Neck and shoulders</p><hr>';
+        cc+='<thead><tr><th class="t-heading">Neck and Shoulders</th><th></th><th></th><th></th></tr></thead><tbody>';
       }
 
-      cc+='<div class="col-lg-3"><div class="row"><div class="col-lg-6"><label class="f-w-600">'+new_str+'</label></div><div class="col-lg-6"><label>'+aa[$i]['value']+'"</label></div></div></div>';
-      //cc+=aa[$i]['name']+' -- '+aa[$i]['value'];
+      
+
+
+      if($i < 17){
+
+        var j = parseInt($i) + 3;
+      var heading1 = aa[j]['name'].replace(/[^a-zA-Z ]/g, " ");
+      var new_str1 = heading1.charAt(0).toUpperCase()+heading1.slice(1);
+        
+        if($i == 2 || $i == 3 || $i == 4){
+          cc+='<tr><th>'+new_str+'</th><td>'+aa[$i]['value']+'"</td>'+'<th>'+new_str1+'</th><td>'+aa[j]['value']+'"</td></tr>';
+        }else if($i == 5 || $i == 6 || $i == 7){
+          cc+='';
+        }else{
+          if($i % 2 === 0){
+            cc+='<tr><th>'+new_str+'</th><td>'+aa[$i]['value']+'"</td>';
+          }else{
+            cc+='<th>'+new_str+'</th><td>'+aa[$i]['value']+'"</td></tr>';
+          }
+        }
+        
+    }else{
+      if($i % 2 !== 0){
+        cc+='<tr><th>'+new_str+'</th><td>'+aa[$i]['value']+'"</td>';
+      }else{
+        cc+='<th>'+new_str+'</th><td>'+aa[$i]['value']+'"</td></tr>';
+      }
     }
-    cc+='</div></div></div>';
+      
+      
+
+
+      
+    }
+    cc+='</tbody></div>';
     //alert(cc);
     
     $("#confirmVariables").html(cc);

@@ -33,12 +33,31 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/icon/icofont/css/icofont.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/icon/font-awesome/css/font-awesome.min.css')}}">
+     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/icon/simple-line-icons/css/simple-line-icons.css')}}">
     <!-- Style')}} -->
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/css/pages.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('node_modules/sweetalert2/dist/sweetalert2.min.css')}}">
 <style>
-.img-radius{border-radius: 5px !important}
+    .img-radius{border-radius: 5px !important}
+    [type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+    border: 2px solid #0f3833;
+    padding: 8px;
+    border-radius: 6px;
+}
 </style>
 </head>
 

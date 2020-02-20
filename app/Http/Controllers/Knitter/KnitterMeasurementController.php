@@ -70,7 +70,7 @@ class KnitterMeasurementController extends Controller
         if($data){
 $body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
 $body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
-$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->orderBy('sort','ASC')->get();
 $arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
 $neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
 $request->session()->put('measurement_id', $data);
@@ -119,8 +119,10 @@ $request->session()->put('measurement_id', $data);
         $filepath = 'knitfit/'.$filename;
 
         $img = Image::make($request->file('file'));
+        $height = Image::make($request->file('file'))->height();
+        $width = Image::make($request->file('file'))->width();
         $img->orientate();
-        $img->resize(200, 200, function ($constraint) {
+        $img->resize($width, $height, function ($constraint) {
             //$constraint->aspectRatio();
         });
         $img->encode('jpg');
@@ -140,7 +142,7 @@ $us = DB::table('user_measurements')->where('id',$id)->first();
 $mp = $us->measurement_preference;
 $body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
 $body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
-$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->orderBy('sort','ASC')->get();
 $arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
 $neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
 return view('knitter.measurements.measurements-add-confirm',compact('us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));
@@ -158,7 +160,7 @@ if($request->mp =='inches'){
 
 $body_size = DB::table('measurement_variables')->where('variable_type','body_size')->get();
 $body_length = DB::table('measurement_variables')->where('variable_type','body_length')->get();
-$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->get();
+$arm_size = DB::table('measurement_variables')->where('variable_type','arm_size')->orderBy('sort','ASC')->get();
 $arm_length = DB::table('measurement_variables')->where('variable_type','arm_length')->get();
 $neck_and_shoulders = DB::table('measurement_variables')->where('variable_type','neck_and_shoulders')->get();
 return view('knitter.measurements.edit-measurement-variables',compact('id','us','mp','body_size','body_length','arm_size','arm_length','neck_and_shoulders'));

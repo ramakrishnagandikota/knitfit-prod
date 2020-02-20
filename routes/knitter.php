@@ -29,4 +29,6 @@ Route::post('measurements/delete-only-picture','Knitter\KnitterMeasurementContro
 /* Project library routes */
 
 Route::get('project-library','Knitter\ProjectController@home');
+Route::get('project-library/archive','Knitter\ProjectController@archive');
+Route::get('create-project','Knitter\ProjectController@create_project');
 });
