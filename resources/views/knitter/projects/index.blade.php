@@ -71,8 +71,9 @@
         <h5 class="card-header-text m-b-20 text-muted">Generated Patterns</h5>
         <div class="card-block">
            <div class="row">
-            @if($generatedpatterns->count() > 0)
+           
               <ul  id="sortable2" class='droptrue'>
+                 @if($generatedpatterns->count() > 0)
                 @foreach($generatedpatterns as $gp)
                 <?php 
                 $image = App\Project::find($gp->pid)->project_images()->first();
@@ -104,12 +105,9 @@
                     </div>
                  </li>
                  @endforeach
+                 @endif
               </ul>
-              @else
-              <ul  id="sortable2" class='droptrue'>
-
-              </ul>
-              @endif
+              
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -121,13 +119,14 @@
         <h5 class="card-header-text m-b-20 text-muted">Work in Progress</h5>
         <div class="card-block">
            <div class="row">
-              @if($workinprogress->count() > 0)
+              
               <ul  id="sortable3" class='droptrue'>
+                @if($workinprogress->count() > 0)
                 @foreach($workinprogress as $wp)
                 <?php 
                 $image2 = App\Project::find($wp->pid)->project_images()->first();
                 ?>
-                 <li class="" id="workinprogress">
+                 <li class="" id="workinprogress{{$wp->pid}}" data-id="{{$wp->pid}}">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
@@ -154,12 +153,8 @@
                     </div>
                  </li>
                  @endforeach
-              </ul>
-              @else
-              <ul  id="sortable3" class='droptrue'>
-
-              </ul>
               @endif
+              </ul>
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -171,13 +166,14 @@
         <h5 class="card-header-text m-b-20 text-muted">Completed</h5>
         <div class="card-block">
            <div class="row">
-              @if($completed->count() > 0)
+              
               <ul  id="sortable4" class='droptrue'>
+                @if($completed->count() > 0)
                 @foreach($completed as $com)
                 <?php 
-                $image3 = App\Project::find($wp->pid)->project_images()->first();
+                $image3 = App\Project::find($com->pid)->project_images()->first();
                 ?>
-                 <li class="" id="completed">
+                 <li class="" id="completed{{$com->pid}}" data-id="{{$com->pid}}">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
@@ -204,12 +200,8 @@
                     </div>
                  </li>
                  @endforeach
-              </ul>
-              @else
-              <ul  id="sortable4" class='droptrue'>
-
-              </ul>
               @endif
+              </ul>
            </div>
         </div>
         <!-- Draggable Without Images card end -->
@@ -293,8 +285,8 @@
 				},
 				success : function(res){
 					if(res.status == 'success'){
+            $("#generatedpatterns"+id+",#workinprogress"+id+",#completed"+id).remove();
 						notify('fa fa-check','success',' ','Project has been added to archive');
-						$("#generatedpatterns"+id).remove();
 					}else{
 						notify('fa fa-times','error',' ','Unable to add project to archive, Try again after sometime.');
 					}
@@ -329,8 +321,9 @@
         },
         success : function(res){
           if(res.status == 'success'){
+            $("#generatedpatterns"+id+",#workinprogress"+id+",#completed"+id).remove();
             notify('fa fa-check','success',' ','Project has been added to archive');
-            $("#generatedpatterns"+id).remove();
+            
           }else{
             notify('fa fa-times','error',' ','Unable to add project to archive, Try again after sometime.');
           }

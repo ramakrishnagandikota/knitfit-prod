@@ -64,7 +64,7 @@
   // });
   
     $("ul.droptrue").sortable({
-        connectWith: 'ul.droptrue',
+        connectWith: '.droptrue',
         opacity: 0.6,
         dropOnEmpty: true,
         // handle: ".handle",
@@ -87,18 +87,22 @@
         receive: function (e, ui) {
             ui.item.before(ui.item.data('items'));
         },
-        stop: function (e, ui) {
-            
+        stop: function (e, ui) {           
 
             var dropId = ui.item.parent().attr("id");
             var Id = ui.item.attr("data-id");
 
+
+
             if(dropId == 'sortable2'){
               var dropTo = 1;
+              ui.item.attr('id',"generatedpatterns"+Id);
             }else if(dropId == 'sortable3'){
               var dropTo = 2;
+              ui.item.attr('id',"workinprogress"+Id);
             }else{
               var dropTo = 3;
+              ui.item.attr('id',"completed"+Id);
             }
 
             $.ajaxSetup({
@@ -131,8 +135,8 @@
     });
     $(".ul.droptrue").disableSelection();
 
-    $("#sortable1, #sortable2,#sortable3,#sortable4").disableSelection();
-    $("#sortable1, #sortable2,#sortable3,#sortable4").css('minHeight', $("#sortable1,#sortable2,#sortable3,#sortable4").height() + "px");
+    $("#sortable2,#sortable3,#sortable4").disableSelection();
+    $("#sortable2,#sortable3,#sortable4").css('minHeight', "483.5px");
   //  updatePostOrder();
 });
 

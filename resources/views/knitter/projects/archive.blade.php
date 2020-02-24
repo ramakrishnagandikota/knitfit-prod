@@ -73,11 +73,12 @@
            <div class="row">
             @if($generatedpatterns->count() > 0)
               <ul  id="sortable2" class='droptrue'>
+
                 @foreach($generatedpatterns as $gp)
                 <?php 
                 $image = App\Project::find($gp->pid)->project_images()->first();
                 ?>
-                 <li class="" id="generatedpatterns{{$gp->pid}}">
+                 <li class="" id="generatedpatterns{{$gp->pid}}" data-id="{{$gp->pid}}">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
@@ -106,7 +107,9 @@
                  @endforeach
               </ul>
               @else
-              <ul  id="sortable3" class='droptrue'>
+              <ul  id="sortable2" class='droptrue'>
+
+
               </ul>
               @endif
            </div>
@@ -126,7 +129,7 @@
                 <?php 
                 $image2 = App\Project::find($wp->pid)->project_images()->first();
                 ?>
-                 <li class="" id="workinprogress">
+                 <li class="" id="workinprogress{{$wp->pid}}" data-id="{{$wp->pid}}" >
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
@@ -156,6 +159,7 @@
               </ul>
               @else
               <ul  id="sortable3" class='droptrue'>
+
               </ul>
               @endif
            </div>
@@ -175,12 +179,12 @@
                 <?php 
                 $image3 = App\Project::find($com->pid)->project_images()->first();
                 ?>
-                 <li class="" id="completed">
+                 <li class="" id="completed{{$com->pid}}" data-id="{{$com->pid}}">
                     <div class="col-md-12 m-b-20">
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image3->image_medium }}" style="height: 100px;" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image3->image_path }}" style="height: 100px;" alt="round-img"></div>
                                 <div class="col-lg-8">
                                    <h6 class="card-title">{{ucfirst($com->name)}}</h6>
                                 </div>
@@ -204,7 +208,8 @@
                  @endforeach
               </ul>
               @else
-              <ul  id="sortable3" class='droptrue'>
+              <ul  id="sortable4" class='droptrue'>
+
               </ul>
               @endif
            </div>
@@ -290,8 +295,8 @@
         },
         success : function(res){
           if(res.status == 'success'){
+            $("#generatedpatterns"+id+",#workinprogress"+id+",#completed"+id).remove();
             notify('fa fa-check','success',' ','Project has been added to project library.');
-            $("#generatedpatterns"+id).remove();
           }else{
             notify('fa fa-times','error',' ','Unable to add project to project library., Try again after sometime.');
           }
@@ -325,6 +330,7 @@
         },
         success : function(res){
           if(res.status == 'success'){
+            $("#generatedpatterns"+id+",#workinprogress"+id+",#completed"+id).remove();
             notify('fa fa-check','success',' ','Project has been removed from Archive and Added back to Project Library');
             $("#generatedpatterns"+id).remove();
           }else{
