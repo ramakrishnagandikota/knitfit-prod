@@ -15,6 +15,8 @@ use File;
 use App\Projectimages;
 use App\Projectneedle;
 use App\Projectyarn;
+use App\NeedleSizes;
+use App\GaugeConversion;
 
 
 class ProjectController extends Controller
@@ -99,7 +101,8 @@ class ProjectController extends Controller
 
     function create_project(Request $request){
     	$measurements = Auth::user()->measurements->count();
-    	return view('knitter.projects.create-project',compact('measurements'));
+    	$needlesizes = NeedleSizes::all();
+    	return view('knitter.projects.create-project',compact('measurements','needlesizes'));
     }
 
     function delete_project(Request $request){
@@ -140,7 +143,7 @@ class ProjectController extends Controller
     	}
 
        if($pu){
-         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/'.env('AWS_BUCKET').'/'.$filepath]);
+         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath]);
      }else{
         echo 'error';
      }
@@ -153,7 +156,10 @@ class ProjectController extends Controller
     }
 
     function project_external(Request $request){
-    	return view('knitter.projects.external');
+    	$needlesizes = NeedleSizes::all();
+    	$gaugeconversion = GaugeConversion::all();
+    	$measurements = Auth::user()->measurements;
+    	return view('knitter.projects.external',compact('needlesizes','gaugeconversion','measurements'));
     }
 
     function upload_project(Request $request){

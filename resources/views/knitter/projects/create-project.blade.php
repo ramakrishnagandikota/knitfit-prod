@@ -463,28 +463,9 @@ $("#needle-row-external").append(' <div class="col-md-4" id="needle'+j+'">\
 <div class="col-md-12">\
     <select class="form-control" name="needle_size[]" id="needle_size'+i+'">\
         <option selected>Select needle size</option>\
-        <option>US 0 - 1.5mm</option>\
-        <option>US 0 - 1.75mm</option>\
-        <option>US 0 - 2mm</option>\
-        <option>US 1 - 2.25mm</option>\
-        <option>US 1.5 - 2.5mm</option>\
-        <option>US 2 - 2.75mm</option>\
-        <option>US 3 - 3.25mm</option>\
-        <option>US 4 - 3.5mm</option>\
-        <option>US 5 - 3.75mm</option>\
-        <option>US 6 - 4mm</option>\
-        <option>US 7 - 4.5mm</option>\
-        <option>US 8 - 5mm</option>\
-        <option>US 9 - 5.5mm</option>\
-        <option>US 10 - 6mm</option>\
-        <option>US 10.5 - 6.5mm</option>\
-        <option>US 11 - 8mm</option>\
-        <option>US 13 - 9mm</option>\
-        <option>US 15 - 10mm</option>\
-        <option>US 17 - 12.75mm</option>\
-        <option>US 19 - 15mm</option>\
-        <option>US 35 - 19mm</option>\
-        <option>US 50 - 25mm</option>\
+        @foreach($needlesizes as $ns)\
+            <option value="{{$ns->id}}">US {{$ns->us_size}}  {{ $ns->mm_size ? '- '.$ns->mm_size.' mm' : '' }}</option>\
+        @endforeach\
     </select>\
 </div>\
 </div></div>\

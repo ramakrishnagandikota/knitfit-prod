@@ -262,28 +262,9 @@
                     <div class="col-md-12">
                         <select class="form-control" id="needle_size1" name="needle_size[]">
                             <option selected >Select needle size</option>
-                            <option>US 0 - 1.5mm</option>
-                            <option>US 0 - 1.75mm</option>
-                            <option>US 0 - 2mm</option>
-                            <option>US 1 - 2.25mm</option>
-                            <option>US 1.5 - 2.5mm</option>
-                            <option>US 2 - 2.75mm</option>
-                            <option>US 3 - 3.25mm</option>
-                            <option>US 4 - 3.5mm</option>
-                            <option>US 5 - 3.75mm</option>
-                            <option>US 6 - 4mm</option>
-                            <option>US 7 - 4.5mm</option>
-                            <option>US 8 - 5mm</option>
-                            <option>US 9 - 5.5mm</option>
-                            <option>US 10 - 6mm</option>
-                            <option>US 10.5 - 6.5mm</option>
-                            <option>US 11 - 8mm</option>
-                            <option>US 13 - 9mm</option>
-                            <option>US 15 - 10mm</option>
-                            <option>US 17 - 12.75mm</option>
-                            <option>US 19 - 15mm</option>
-                            <option>US 35 - 19mm</option>
-                            <option>US 50 - 25mm</option>
+                            @foreach($needlesizes as $ns)
+                                <option value="{{$ns->id}}">US {{$ns->us_size}}  {{ $ns->mm_size ? '- '.$ns->mm_size.' mm' : '' }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -342,36 +323,16 @@
                     <div class="col-md-12">
                         <select class="form-control" name="stitch_gauge_in" id="stitch-sts-external">
                             <option selected>Select value (inches)</option>
-                                        <option> 8 sts / 4 inches</option>
-                                        <option> 10 sts / 4 inches</option>
-                                        <option>12 sts / 4 inches</option>
-                                        <option> 14 sts / 4 inches</option>
-                                        <option>16 sts / 4 inches</option>
-                                        <option>18 sts / 4 inches</option>
-                                        <option>20 sts / 4 inches</option>
-                                        <option>22 sts / 4 inches</option>
-                                        <option>24 sts / 4 inches</option>
-                                        <option> 26 sts / 4 inches</option>
-                                        <option>28 sts / 4 inches</option>
-                                        <option>30 sts / 4 inches</option>
-                                        <option>32 sts / 4 inches</option>
+                            @foreach($gaugeconversion as $gc)
+                            <option value="{{$gc->id}}">{{$gc->stitch_gauge_inch .' / 1 inches'}}</option>
+                            @endforeach
                         </select>
 
                         <select class="form-control" name="stitch_gauge_cm" id="stitch-cm-external">
                             <option selected>Select value (cm)</option>
-                            <option>8 sts / 10 cm</option>
-                            <option>10 sts / 10 cm</option>
-                            <option>12 sts / 10 cm</option>
-                            <option>14 sts / 10 cm</option>
-                            <option>16 sts / 10 cm</option>
-                            <option>18 sts / 10 cm</option>
-                            <option>20 sts / 10 cm</option>
-                            <option>22 sts / 10 cm</option>
-                            <option>24 sts / 10 cm</option>
-                            <option>26 sts / 10 cm</option>
-                            <option>28 sts / 10 cm</option>
-                            <option>30 sts / 10 cm</option>
-                            <option>32 sts / 10 cm</option>
+                            @foreach($gaugeconversion as $gc1)
+                            <option value="{{$gc1->id}}">{{$gc1->stitches_10_cm .' / 10cm'}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -391,26 +352,17 @@
                     <div class="col-md-12">
                         <select class="form-control" name="row_gauge_in" id="row-sts-external">
                             <option>Select value (inches)</option>
-                            <option>12 sts / 4 inches</option>
-                            <option>20 sts / 4 inches</option>
-                            <option>26 sts / 4 inches</option>
-                            <option>28 sts / 4 inches</option>
-                            <option>30 sts / 4 inches</option>
-                            <option>32 sts / 4 inches</option>
-                            <option>34 sts / 4 inches</option>
-                            <option>36 sts / 4 inches</option>
+                            @foreach($gaugeconversion as $gc2)
+                            <option value="{{$gc2->id}}">{{$gc2->row_gauge_inch .' / 1 inches'}}</option>
+                            @endforeach
                         </select>
 
                         <select class="form-control" name="row_gauge_cm" id="row-cm-external">
                             <option selected>Select value (cm)</option>
                             <option>12 sts / 10 cm</option>
-                            <option>20 sts / 10 cm</option>
-                            <option>26 sts / 10 cm</option>
-                            <option>28 sts / 10 cm</option>
-                            <option>30 sts / 10 cm</option>
-                            <option>32 sts / 10 cm</option>
-                            <option>34 sts / 10 cm</option>
-                            <option>36 sts / 10 cm</option>
+                            @foreach($gaugeconversion as $gc3)
+                            <option value="{{$gc3->id}}">{{$gc3->rows_10_cm .' / 10cm'}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -444,9 +396,12 @@ data-toggle="collapse" data-target="#section4-EXT">
                     <div class="row">
                             <div class="col-md-12">
                                 <select class="form-control" name="measurement_profile" id="sel1">
-                                    <option>For Jack</option>
-                                    <option>For Rose</option>
-                                    <option>For Rock</option>
+                                    <option value="0">Select measurement profile</option>
+                                    @if($measurements->count() > 0)
+                                        @foreach($measurements as $ms)
+                                            <option value="{{$ms->id}}">For {{$ms->m_title}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -466,46 +421,18 @@ data-toggle="collapse" data-target="#section4-EXT">
                     <div class="row">
                             <div class="col-md-12">
                                 <select id="inches-ease-prefer-ext" name="ease_in" class="form-control">
-                                    <option>Select value (inches)</option>
-                                    <option>1″</option>
-                                    <option selected>1.5″</option>
-                                    <option>2″</option>
-                                    <option>2.5″</option>
-                                    <option>3″</option>
-                                    <option>3.5″</option>
-                                    <option>4″</option>
-                                    <option>4.5″</option>
-                                    <option>5″</option>
-                                    <option>5.5″</option>
-                                    <option>6″</option>
-                                    <option>6.5″</option>
-                                    <option>7″</option>
-                                    <option>7.5″</option>
-                                    <option>8″</option>
+                                    <option value="0" selected disabled >Select value (inches)</option>
+                                    @for($j=1;$j<= 20;$j+= 0.25)
+                                        <option value="{{$j}}">{{$j}}"</option>
+                                    @endfor
                                 </select>
 
                                 <select id="sts-ease-prefer-ext" name="ease_cm" class="form-control">
-                                    <option selected>Select value (cm)</option>
-                                    <option>1 cm</option>
-                                    <option>2 cm</option>
-                                    <option>3 cm</option>
-                                    <option>4 cm</option>
-                                    <option>5 cm</option>
-                                    <option>6 cm</option>
-                                    <option>7 cm</option>
-                                    <option>8 cm</option>
-                                    <option>9 cm</option>
-                                    <option>10 cm</option>
-                                    <option>11 cm</option>
-                                    <option>12 cm</option>
-                                    <option>13 cm</option>
-                                    <option>14 cm</option>
-                                    <option>15 cm</option>
-                                    <option>16 cm</option>
-                                    <option>17 cm</option>
-                                    <option>18 cm</option>
-                                    <option>19 cm</option>
-                                    <option>20 cm</option>
+                                    <option value="0" selected disabled >Select value (cm)</option>
+                                    @for($i=1;$i <= 20;$i++)
+                                    <option value="{{$i}}">{{$i}} cm</option>
+                                    @endfor
+                                    
                                 </select>
 
                             </div>

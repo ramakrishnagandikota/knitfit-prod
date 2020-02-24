@@ -35,7 +35,7 @@
       <div class="card-sub-custom">
           <div class="card-block">
               <div class="row">
-             <div class="col-lg-4"><img class="img-fluid" src="{{ $ord->image_medium }}" style="height: 100px;" alt="round-img"></div>
+             <div class="col-lg-4"><img class="img-fluid" src="{{ $ord->image_medium }}" alt="round-img"></div>
              <div class="col-lg-8"><h6 class="card-title">{{ucfirst($ord->product_name)}}</h6>     
       </div>
           </div>
@@ -83,7 +83,7 @@
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image->image_path }}" style="height: 100px;" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image->image_path }}"  alt="round-img"></div>
                                 <div class="col-lg-8">
                                    <h6 class="card-title">{{ucfirst($gp->name)}}</h6>
                                 </div>
@@ -131,7 +131,7 @@
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image2->image_path }}" style="height: 100px;" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image2->image_path }}" alt="round-img"></div>
                                 <div class="col-lg-8">
                                    <h6 class="card-title">{{ucfirst($wp->name)}}</h6>
                                 </div>
@@ -178,7 +178,7 @@
                        <div class="card-sub-custom">
                           <div class="card-block">
                              <div class="row">
-                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image3->image_path }}" style="height: 100px;" alt="round-img"></div>
+                                <div class="col-lg-4"><img class="img-fluid" src="{{ $image3->image_path }}" alt="round-img"></div>
                                 <div class="col-lg-8">
                                    <h6 class="card-title">{{ucfirst($com->name)}}</h6>
                                 </div>
