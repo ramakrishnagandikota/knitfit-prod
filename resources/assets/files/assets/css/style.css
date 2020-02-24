@@ -5998,7 +5998,7 @@ body[themebg-pattern="theme6"] {
 }
 
 .pcoded .pcoded-header[header-theme="theme1"] .dropdown-toggle, .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon, .pcoded .pcoded-header[header-theme="theme1"] a {
-    color: grey
+    
 }
 
 .pcoded .pcoded-header[header-theme="theme2"] {
@@ -11684,7 +11684,7 @@ button:focus{outline: none !important}
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #c0c0c0; 
+  background: #0d665c; 
 }
 
 /* Handle on hover */

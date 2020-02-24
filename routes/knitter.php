@@ -31,4 +31,12 @@ Route::post('measurements/delete-only-picture','Knitter\KnitterMeasurementContro
 Route::get('project-library','Knitter\ProjectController@home');
 Route::get('project-library/archive','Knitter\ProjectController@archive');
 Route::get('create-project','Knitter\ProjectController@create_project');
+Route::post('project-to-archive','Knitter\ProjectController@project_to_archive');
+Route::post('project-to-library','Knitter\ProjectController@project_to_library');
+Route::post('delete-project','Knitter\ProjectController@delete_project');
+Route::get('project/external','Knitter\ProjectController@project_external');
+Route::post('project/change-status','Knitter\ProjectController@project_change_status');
+Route::post('project-image','Knitter\ProjectController@project_images');
+Route::post('remove-project-image','Knitter\ProjectController@remove_project_image');
+Route::post('create-project','Knitter\ProjectController@upload_project');
 });

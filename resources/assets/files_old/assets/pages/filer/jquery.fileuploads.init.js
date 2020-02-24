@@ -98,12 +98,16 @@ $(document).ready(function(){
             drop: null,
         },
         uploadFile: {
-            url: "../files/assets/pages/filer/php/ajax_upload_file.php",
-            data: null,
+            url: "http://localhost:8080/knitfit-prod/knitter/upload-measurement-picture",
+            data: new FormData(),
             type: 'POST',
             enctype: 'multipart/form-data',
-            beforeSend: function(){},
+            beforeSend: function(){
+                $(".loading").show();
+            },
             success: function(data, el){
+                $(".loading").hide();
+                console.log(el);
                 var parent = el.find(".jFiler-jProgressBar").parent();
                 el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
                     $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");
@@ -115,6 +119,7 @@ $(document).ready(function(){
                     $("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> Error</div>").hide().appendTo(parent).fadeIn("slow");
                 });
             },
+            
             statusCode: null,
             onProgress: null,
             onComplete: null
@@ -130,7 +135,7 @@ $(document).ready(function(){
         afterShow: null,
         onRemove: function(itemEl, file, id, listEl, boxEl, newInputEl, inputEl){
             var file = file.name;
-            $.post('../files/assets/pages/filer/php/ajax_remove_file.php', {file: file});
+            $.post("http://localhost:8080/knitfit-prod/knitter/upload-measurement-picture", {file: file});
         },
         onEmpty: null,
         options: null,

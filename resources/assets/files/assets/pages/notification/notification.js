@@ -80,7 +80,7 @@ $(document).ready(function() {
         });
     };
 
-    $('.notifications .note').on('click',function(e){
+    /* $('.notifications .note').on('click',function(e){
         e.preventDefault();
         var nFrom = $(this).attr('data-from');
         var nAlign = $(this).attr('data-align');
@@ -90,7 +90,7 @@ $(document).ready(function() {
         var nAnimOut = $(this).attr('data-animation-out');
 
         notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,"Project has been added to Archive");
-    });
+    }); */
 
 });
 

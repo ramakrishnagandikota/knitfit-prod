@@ -88,10 +88,44 @@
             ui.item.before(ui.item.data('items'));
         },
         stop: function (e, ui) {
-            ui.item.siblings('.selected').removeClass('hidden');
-            $('.selected').removeClass('selected');
-            $('.se').removeClass('se');
-            $(".d_n").addClass('d_b');
+            
+
+            var dropId = ui.item.parent().attr("id");
+            var Id = ui.item.attr("data-id");
+
+            if(dropId == 'sortable2'){
+              var dropTo = 1;
+            }else if(dropId == 'sortable3'){
+              var dropTo = 2;
+            }else{
+              var dropTo = 3;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+              url : URL+'/knitter/project/change-status',
+              type : 'POST',
+              data: 'id='+Id+'&status='+dropTo,
+              beforeSend : function(){
+                //$(".loading").show();
+              },
+              success : function(res){
+                ui.item.siblings('.selected').removeClass('hidden');
+                $('.selected').removeClass('selected');
+                $('.se').removeClass('se');
+                $(".d_n").addClass('d_b');
+                $("#date"+Id).html(DATE);
+              },
+              complete : function(){
+                //$(".loading").hide();
+              }
+            });
+            
         },
       //  update: updatePostOrder
     });

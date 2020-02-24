@@ -38,7 +38,7 @@ $(document).ready(function() {
     /*
      * Notifications
      */
-    function notify(from, align, icon, type, animIn, animOut,title, msg){
+    function notify(icon, type,title, msg){
         $.growl({
             icon: icon,
             title: title,
@@ -49,8 +49,8 @@ $(document).ready(function() {
             type: type,
             allow_dismiss: true,
             placement: {
-                from: from,
-                align: align
+                from: 'top',
+                align: 'right'
             },
             offset: {
                 x: 30,
@@ -63,8 +63,8 @@ $(document).ready(function() {
             url_target: '_blank',
             mouse_over: false,
             animate: {
-                enter: animIn,
-                exit: animOut
+                enter: 'animated fadeInRight',
+                exit: 'animated fadeOutRight'
             },
             icon_type: 'class',
             template: '<div data-growl="container" class="alert" role="alert">' +
@@ -80,7 +80,7 @@ $(document).ready(function() {
         });
     };
 
-    $('.notifications .note').on('click',function(e){
+  /*  $('.notifications .note').on('click',function(e){
         e.preventDefault();
         var nFrom = $(this).attr('data-from');
         var nAlign = $(this).attr('data-align');
@@ -88,9 +88,10 @@ $(document).ready(function() {
         var nType = $(this).attr('data-type');
         var nAnimIn = $(this).attr('data-animation-in');
         var nAnimOut = $(this).attr('data-animation-out');
+        var nMoving = $(this).attr('data-moving');
 
-        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,"Project has been added to Archive");
-    });
+        notify(nFrom, nAlign, nIcons, nType, nAnimIn, nAnimOut,"Project has been added to "+nMoving);
+    }); */
 
 });
 

@@ -4,9 +4,13 @@
 			@foreach($measurements as $ms)
 				
 
-                <div class="col-lg-6 col-xl-2 col-md-6 measurementbox id_{{$ms->id}}" id="id_{{base64_encode($ms->id)}}">
+                <div class="col-lg-6 col-xl-3 col-md-6 measurementbox id_{{$ms->id}}" id="id_{{base64_encode($ms->id)}}">
                     <div class="card rounded-card custom-card">
-                        <img class="img-fluid" style="height: 200px;width: 150px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
+                        <div class="">
+                            <a href="">
+                        <img class="img-fluid" style="height: 408px;" src="{{ $ms->user_meas_image ? asset($ms->user_meas_image) : asset('https://via.placeholder.com/150X200') }}" alt="round-img">
+                    </a>
+                </div>
                     
                         <div class="user-content text-left">
                             <h4 class="m-l-10 text-center"> <a href="{{url('knitter/measurements/edit/'.base64_encode($ms->id))}}">{{ $ms->m_title ? ucwords($ms->m_title) : 'No Name' }}</a></h4>

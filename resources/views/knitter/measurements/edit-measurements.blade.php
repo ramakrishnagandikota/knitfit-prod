@@ -252,7 +252,9 @@
   display: none;
 }
 .red{
-  color: red;
+color: #bc7c8f;
+font-weight:bold;
+font-size: 12px;
 }
 .full-width{
   width: 100%;

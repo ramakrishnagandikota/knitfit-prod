@@ -110,10 +110,12 @@ $request->session()->put('measurement_id', $data);
     function upload_measurement_picture(Request $request){
         
         $image = $request->file('file');
+        
         //print_r($image);
         //exit;
-         $filename = time().$image->getClientOriginalName();
 
+         
+        $filename = time().'-'.$image->getClientOriginalName();
          $s3 = \Storage::disk('s3');
         //exit;
         $filepath = 'knitfit/'.$filename;
