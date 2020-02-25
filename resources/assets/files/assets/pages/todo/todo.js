@@ -1,6 +1,9 @@
   'use strict';
   $(document).ready(function() {
-	$('.blank-message').hide();
+    if($("#task-list li").length > 0){
+      $('.blank-message').hide();
+    }
+	
       //  main button click function
       $('button#create-task').on('click', function() {
 
@@ -17,8 +20,21 @@
           if (task.length == 0) {
               alert('please enter a task');
           } else {
-              var newTask = '<li>' + '<i class="fa fa-trash delete-item"></i>'+'<p>' + task + '</p>' + '</li>'
-              $('#task-list').append(newTask);
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+            $.post(insertTaskURL, { project_id: project_id, note: task },function(res){
+              if(res.status == 'success'){
+                var newTask = '<li id="task-card'+res.id+'" data-id="'+res.id+'" class="">' + '<i class="fa fa-trash delete-item" data-id="'+res.id+'"></i>'+'<p>' + task + '</p>' + '</li>'
+                $('#task-list').append(newTask);
+              }else{
+                alert('Unable to add notes, Try again after some time.');
+              }
+            });
+              
 
               // clear form when button is pressed
               $('input').val('');
@@ -33,7 +49,24 @@
 
       // mark as complete
       $(document).on('click', 'li', function() {
-          $(this).toggleClass('complete');
+
+        var notes_id = $(this).attr('data-id');
+
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $.post(completeTaskURL, { id: notes_id},function(res){
+        if(res.status == 'success'){
+          $("#task-card"+notes_id).toggleClass('complete');
+        }else{
+          alert('Unable to mark the note complete, Try again after some time.');
+        }
+      });
+
+          
       });
 
       // double click to remove
@@ -41,19 +74,35 @@
          // $(this).remove();
       });
 
-      $('.delete-item').on('click', function() {
+      $(document).on('click','.delete-item', function() {
       {
+          var id = $(this).attr('data-id');
+          $("#notes_id").val(id);
           $('#delete-single-Modal').modal('show');
         //$(this).closest('li').remove();
       }});
     
       // Clear all tasks button
       $('button#clear-all-tasks').on('click', function() {
+
+         $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $.post(deleteAllNote, { project_id: project_id},function(res){
+        if(res.status == 'success'){
           $('#task-list li').remove();
           $('.task-headline').fadeOut();
           $('#controls').fadeOut();
           $('.nothing-message').show('fast');
-		  $('.blank-message').show();
+          $('.blank-message').show();
+        }else{
+          alert('Unable to mark the note complete, Try again after some time.');
+        }
+      });
+
       });
 
       /*2nd todo*/

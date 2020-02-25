@@ -350,7 +350,7 @@ $("#yarn-row-external").append('<div id="yarn_tools'+i+'" class="row" style="mar
 </span></label>\
 <div class="row">\
 <div class="col-md-12">\
-<input type="text" class="form-control" id="yarn_used'+i+'" name="yarn_used[]" value="Lion Brand Yarn 135-189 Hometown Yarn">\
+<input type="text" class="form-control" id="yarn_used'+i+'" name="yarn_used[]" placeholder="Lion Brand Yarn 135-189 Hometown Yarn">\
 </div>\
 </div>\
 </div>\
@@ -367,7 +367,7 @@ $("#yarn-row-external").append('<div id="yarn_tools'+i+'" class="row" style="mar
 </label>\
 <div class="row">\
 <div class="col-md-12">\
-<input type="text" class="form-control" id="fiber_type'+i+'" name="fiber_type[]" value="Combed cotton woollen"></div>\
+<input type="text" class="form-control" id="fiber_type'+i+'" name="fiber_type[]" placeholder="Combed cotton woollen"></div>\
 </div>\
 </div>\
 </div> \
@@ -560,13 +560,13 @@ $(document).on('click','#save',function(e){
         success : function(res){
             if(res.status == 'success'){
                 notify('fa fa-check','success',' ','Project created successfully');
-                setTimeout(function(){ window.location.assign('{{url("knitter/project-library")}}'); },2000);
+                setTimeout(function(){ window.location.assign('{{url("knitter/generate-pattern")}}/'+res.key+'/'+res.slug); },2000);
             }else{
                 notify('fa fa-times','error',' ','Unable to create project, Try again after sometime.');
             }
         },
         complete : function(){
-           setTimeout(function(){ $(".loading").hide(); },1000);
+           setTimeout(function(){ $(".loading").hide(); },1500);
         }
     });
 });

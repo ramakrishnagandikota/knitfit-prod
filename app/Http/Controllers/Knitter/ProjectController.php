@@ -17,6 +17,8 @@ use App\Projectneedle;
 use App\Projectyarn;
 use App\NeedleSizes;
 use App\GaugeConversion;
+use Illuminate\Support\Str;
+use App\ProjectNotes;
 
 
 class ProjectController extends Controller
@@ -35,11 +37,11 @@ class ProjectController extends Controller
 		->get();
 
 
-		$generatedpatterns = Auth::user()->projects()->where('status',1)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$generatedpatterns = Auth::user()->projects()->where('status',1)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
-		$workinprogress = Auth::user()->projects()->where('status',2)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$workinprogress = Auth::user()->projects()->where('status',2)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
-		$completed = Auth::user()->projects()->where('status',3)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$completed = Auth::user()->projects()->where('status',3)->where('is_archive',0)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
     	return view('knitter.projects.index',compact('orders','generatedpatterns','workinprogress','completed'));
     }
@@ -53,11 +55,11 @@ class ProjectController extends Controller
 		->where('booking_process.user_id', Auth::user()->id)
 		->get();
 
-		$generatedpatterns = Auth::user()->projects()->where('status',1)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$generatedpatterns = Auth::user()->projects()->where('status',1)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
-		$workinprogress = Auth::user()->projects()->where('status',2)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$workinprogress = Auth::user()->projects()->where('status',2)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
-		$completed = Auth::user()->projects()->where('status',3)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','created_at','updated_at')->get();
+		$completed = Auth::user()->projects()->where('status',3)->where('is_archive',1)->where('is_deleted',0)->select('id as pid','name','token_key','created_at','updated_at')->get();
 
     	return view('knitter.projects.archive',compact('orders','generatedpatterns','workinprogress','completed'));
     }
@@ -130,7 +132,7 @@ class ProjectController extends Controller
         if($ext == 'pdf'){
         	$pu = $s3->put('/'.$filepath, file_get_contents($image[$i]),'public');
         }else{
-
+        $ext = 'jpg';
         $img = Image::make($image[$i]);
         $height = Image::make($image[$i])->height();
         $width = Image::make($image[$i])->width();
@@ -143,7 +145,7 @@ class ProjectController extends Controller
     	}
 
        if($pu){
-         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath]);
+         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath,'ext' => $ext]);
      }else{
         echo 'error';
      }
@@ -171,8 +173,11 @@ class ProjectController extends Controller
     	$projectsCount = Project::count();
     	$token = $projectsCount + 1;
 
+    	$key = md5($token);
+    	$slug = Str::slug($request->project_name,'-');
+
     	$project = new Project;
-    	$project->token_key = md5($token);
+    	$project->token_key = $key;
     	$project->user_id = Auth::user()->id;
     	$project->product_id = 0;
     	$project->name = $request->project_name;
@@ -207,6 +212,7 @@ class ProjectController extends Controller
     			$pi->user_id = Auth::user()->id;
     			$pi->project_id = $project->id;
     			$pi->image_path = $request->image[$i];
+    			$pi->image_ext = $request->ext[$i];
     			$pi->created_at = Carbon::now();
     			$pi->ipaddress = $_SERVER['REMOTE_ADDR'];	
     			$pi->save();
@@ -237,9 +243,144 @@ class ProjectController extends Controller
     			$pn->save();
     		}
 
-    		return response()->json(['status' => 'success']);
+    		return response()->json(['status' => 'success','key' => $key,'slug' => $slug]);
     	}else{
 			return response()->json(['status' => 'fail']);
 		}
+    }
+
+    function generate_external_pattern(Request $request){
+    	$id = $request->id;
+    	$slug = $request->slug;
+
+    	$project = Project::where('token_key', $id)->first();
+    	$project_images = $project->project_images;
+    	$project_yarn = $project->project_yarn;
+    	$project_needle = $project->project_needle()->leftJoin('needle_sizes','needle_sizes.id','projects_needle.needle_size')->select('needle_sizes.us_size','needle_sizes.mm_size','projects_needle.id as pnid')->get();
+    $stitch_gauge = GaugeConversion::where('id',$project->stitch_gauge)->first();
+    $row_gauge = GaugeConversion::where('id',$project->row_gauge)->first();
+    $measurements = UserMeasurements::where('id',$project->measurement_profile)->first();
+    $project_notes = $project->project_notes;
+
+    return view('knitter.projects.generate-external-pattern',compact('project','project_images','project_yarn','project_needle','stitch_gauge','row_gauge','measurements','project_notes'));
+    }
+
+    function project_notes_add(Request $request){
+    	$notes = new ProjectNotes;
+    	$notes->user_id = Auth::user()->id;
+    	$notes->project_id = $request->project_id;
+    	$notes->notes = $request->note;
+    	$notes->created_at = Carbon::now();
+    	$notes->status = 1;
+    	$notes->ipaddress = $_SERVER['REMOTE_ADDR'];
+    	$save = $notes->save();
+    	if($save){
+    		return response()->json(['status' => 'success','id' => $notes->id]);
+    	}else{
+    		return response()->json(['status' => 'fail']);
+    	}
+    }
+
+    function project_notes_completed(Request $request){
+    	$id = $request->id;
+    	$check = ProjectNotes::where('id',$id)->first();
+    	if($check->status == 1){
+    		$notes = ProjectNotes::find($id);
+    		$notes->status = 2;
+    		$notes->completed_at = Carbon::now();
+    		$save = $notes->save();
+    	}else{
+    		$notes = ProjectNotes::find($id);
+    		$notes->status = 1;
+    		$notes->completed_at = NULL;
+    		$notes->updated_at = Carbon::now();
+    		$save = $notes->save();
+    	}
+
+    	if($save){
+    		return response()->json(['status' => 'success']);
+    	}else{
+    		return response()->json(['status' => 'fail']);
+    	}
+    }
+
+    function project_notes_delete(Request $request){
+    	$id = $request->id;
+    	$notes = ProjectNotes::find($id);
+    	$save = $notes->delete();
+    	if($save){
+    		return response()->json(['status' => 'success']);
+    	}else{
+    		return response()->json(['status' => 'fail']);
+    	}
+    }
+
+    function project_notes_delete_all(Request $request){
+    	$delete = ProjectNotes::where('project_id',$request->project_id)->delete();
+    	if($delete){
+    		return response()->json(['status' => 'success']);
+    	}else{
+    		return response()->json(['status' => 'fail']);
+    	}
+    }
+
+    function upload_more_images(Request $request){
+    	$id = $request->id;
+    	$project = Project::where('token_key',$id)->first();
+    $project_images = $project->project_images()->where('image_ext','jpg')->get();
+    	return view('knitter.projects.project-images',compact('project','project_images'));
+    }
+
+    function get_all_project_images(Request $request){
+    	$id = $request->id;
+    	$project = Project::where('token_key',$id)->first();
+    $project_images = $project->project_images()->where('image_ext','jpg')->get();
+    return response()->json(['images' => $project_images]);
+    }
+
+    function upload_project_images_own(Request $request){
+    	$id = $request->id;
+
+    	$image = $request->file('file');
+    	for ($i=0; $i < count($image); $i++) { 
+            $filename = time().'-'.$image[$i]->getClientOriginalName();
+            $ext = $image[$i]->getClientOriginalExtension();
+
+         $s3 = \Storage::disk('s3');
+        //exit;
+        $filepath = 'knitfit/'.$filename;
+
+        if($ext == 'pdf'){
+        	$pu = $s3->put('/'.$filepath, file_get_contents($image[$i]),'public');
+        }else{
+        $ext = 'jpg';
+        $img = Image::make($image[$i]);
+        $height = Image::make($image[$i])->height();
+        $width = Image::make($image[$i])->width();
+        $img->orientate();
+        $img->resize($width, $height, function ($constraint) {
+            //$constraint->aspectRatio();
+        });
+        $img->encode('jpg');
+        $pu = $s3->put('/'.$filepath, $img->__toString(), 'public');
+    	}
+
+       if($pu){
+
+       	$path = 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath;
+       	$pimages = new Projectimages;
+       	$pimages->user_id = Auth::user()->id;
+       	$pimages->project_id = $id;
+       	$pimages->image_path = $path;
+       	$pimages->image_ext = $ext;
+       	$pimages->created_at = Carbon::now();
+       	$pimages->ipaddress = $_SERVER['REMOTE_ADDR'];
+       	$pimages->save();
+
+         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath,'ext' => $ext]);
+     }else{
+        echo 'error';
+     }
+        }
     }
 }

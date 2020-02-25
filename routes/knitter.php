@@ -39,4 +39,13 @@ Route::post('project/change-status','Knitter\ProjectController@project_change_st
 Route::post('project-image','Knitter\ProjectController@project_images');
 Route::post('remove-project-image','Knitter\ProjectController@remove_project_image');
 Route::post('create-project','Knitter\ProjectController@upload_project');
+Route::get('generate-pattern/{id}/{slug}','Knitter\ProjectController@generate_external_pattern');
+
+Route::post('addNotes','Knitter\ProjectController@project_notes_add');
+Route::post('noteComplete','Knitter\ProjectController@project_notes_completed');
+Route::post('deleteNote','Knitter\ProjectController@project_notes_delete');
+Route::post('deleteAllNote','Knitter\ProjectController@project_notes_delete_all');
+
+Route::get('project/{id}/images','Knitter\ProjectController@upload_more_images');
+Route::post('project/my-images/{id}','Knitter\ProjectController@upload_project_images_own');
 });

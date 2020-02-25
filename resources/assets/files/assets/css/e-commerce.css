@@ -1,6 +1,6 @@
 .welcome-knitfit,.call-us{padding-left: 5px!important;padding-right: 10px!important;margin-top: 3px;}
 .media-body h5{margin-left: 10px;margin-top: 5px;}
-.view-cart,.checkout{padding: 6px 24px 6px 24px!important;}
+.view-cart,.checkout{padding: 3px 20px 3px 20px!important;border-radius: 2px;}
 .show-account-dropdown {
         background: #fff;
         -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
@@ -34,3 +34,8 @@
     .table td {
         padding: .75rem 0.75rem;
     }
+
+    .shopping-cart li{padding: .4em 20px!important;}
+    a>u{color:#0d665c}
+    .mytable th,td{padding: 10px;font-size: 16px;}
+    .mytable td{font-size: 14px;}

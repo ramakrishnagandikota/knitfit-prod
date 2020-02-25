@@ -45,8 +45,6 @@ $(document).ready(function(){
         templates: {
             box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
             item: '<li class="jFiler-item">\
-            <input type="hidden" name="image[]" id="image" value="" >\
-            <input type="hidden" name="ext[]" id="ext" value="" >\
                         <div class="jFiler-item-container">\
                             <div class="jFiler-item-inner">\
                                 <div class="jFiler-item-thumb">\
@@ -118,8 +116,14 @@ $(document).ready(function(){
                 //console.log(el);
                 //$(this).closest('#image').val(data.path);
                 var parent = el.find(".jFiler-jProgressBar").parent();
-                el.find("#image").val(data.path);
-                el.find("#ext").val(data.ext);
+                //el.find("#image").val(data.path);
+                //el.find("#ext").val(data.ext);
+                if(data.ext == 'jpg'){
+                    var add = '<div class="col-xl-2 col-lg-3 col-sm-3 col-xs-12 custom-padding-column">\
+                    <a href="'+data.path+'" data-toggle="lightbox" data-gallery="example-gallery">\
+                    <img src="'+data.path+'" class="img-fluid m-b-10" alt=""></a></div>';
+                    $("#gallery_images").append(add);
+                }
                 el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
                     $("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> Success</div>").hide().appendTo(parent).fadeIn("slow");
 

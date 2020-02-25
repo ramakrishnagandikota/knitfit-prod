@@ -140,7 +140,7 @@
             </label>
             <div class="row">
                     <div class="col-md-12">
-                    <input type="text" class="form-control" name="fiber_type[]" id="fiber_type1" value="Combed cotton woollen" > 
+                    <input type="text" class="form-control" name="fiber_type[]" id="fiber_type1" placeholder="Combed cotton woollen" > 
                     </div>
                    
                 </div>
@@ -455,7 +455,7 @@ data-toggle="collapse" data-target="#section4-EXT">
         <input id="profile-upload" type='file' onchange="readprofileURL(this);" />
             </span>
     <div class="col-sm-12 col-lg-12">
-        <img id="profile-img-external-pattern" src="https://via.placeholder.com/364x547"
+        <img id="profile-img-external-pattern" src="{{url('resources/assets/files/assets/images/user-card/pattern.jpg')}}"
             alt="" style="width:100%; ">
             
     </div>

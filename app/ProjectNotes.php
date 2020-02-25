@@ -5,9 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Project;
 
-class Projectimages extends Model
+class ProjectNotes extends Model
 {
-    protected $table = 'projects_images';
+    protected $table = 'projects_notes';
 
     function projects(){
         return $this->belongsTo(Project::class);

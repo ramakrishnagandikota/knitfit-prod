@@ -7,6 +7,7 @@ use App\User;
 use App\Projectimages;
 use App\Projectneedle;
 use App\Projectyarn;
+use App\ProjectNotes;
 
 class Project extends Model
 {
@@ -26,5 +27,9 @@ class Project extends Model
 
     function project_yarn(){
     	return $this->hasMany(Projectyarn::class);
+    }
+
+    function project_notes(){
+        return $this->hasMany(ProjectNotes::class);
     }
 }

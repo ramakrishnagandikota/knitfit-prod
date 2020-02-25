@@ -85,7 +85,7 @@
                              <div class="row">
                                 <div class="col-lg-4"><img class="img-fluid" src="{{ $image->image_path }}"  alt="round-img"></div>
                                 <div class="col-lg-8">
-                                   <h6 class="card-title">{{ucfirst($gp->name)}}</h6>
+                                   <h6 class="card-title"><a href="{{url('knitter/generate-pattern/'.$gp->token_key.'/'.Str::slug($gp->name))}}">{{ucfirst($gp->name)}}</a></h6>
                                 </div>
                              </div>
                           </div>
