@@ -73,7 +73,7 @@
                               </div>
                            </div>
                            <input type="hidden" id="imageurl" name="user_meas_image" value="https://via.placeholder.com/150X200">
-                         </form>
+                         
                            <!-- <div class="row">
                               <label class="col-sm-12 col-form-label">For Whom</label>
                               </div> -->
@@ -89,18 +89,8 @@
                                  <div class="row">
                                     <div class="col-lg-6 m-l-15">
 
-                                      <form id="file-upload-form" enctype="multipart/form-data" method="POST">
-                                        @csrf
-                                     
-                                       
-                               <div id="dd">
-                                  <label for="upload-photo" class="custom-file-upload">
-                                   <p class="text-center"> <i class="fa fa-cloud-upload fa-2x"></i> </p>
-                                      <span>Browse files </span>
-                                  </label>
-                                  <input type="file" name="file" id="upload-photo" />
-                                </div>
-                                 </form>
+                              <input type="file" name="file[]" id="filer_input1" style="width: 600px;" data-jfiler-limit="1" data-jfiler-extensions="jpg,jpeg,png">
+                                 
                                  <span class="red imageurl"></span>
                                     </div>
                                  </div>
@@ -109,7 +99,7 @@
 
                               </div>
 
-
+            
                               <div class="col-md-12">
                                 <div class="row" id="imageplace">
                                   
@@ -117,6 +107,8 @@
                               
                                 </div>
                               </div>
+
+                              </form>
                               <div class="col-lg-12">
                                  <button type="button" id="submit" class="btn btn-default theme-btn pull-right waves-effect m-r-10">Save</button>
                               </div>
@@ -163,7 +155,9 @@
 
 @endsection
 @section('footerscript')
-
+<script type="text/javascript">
+  var URL = '{{url("knitter/upload-measurement-picture")}}';
+</script>
 <link href="{{ asset('resources/assets/select2/select2.min.css') }}" rel="stylesheet" />
     <!-- Date-time picker css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('resources/assets/files/assets/pages/advance-elements/css/bootstrap-datetimepicker.css') }}">

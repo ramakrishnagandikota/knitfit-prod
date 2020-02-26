@@ -56,15 +56,17 @@ class KnitterMeasurementController extends Controller
 
     function create_measurements(Request $request){
         
-        if(isset($request->user_meas_image)){
-            $imagepath = $request->user_meas_image;
+        if(isset($request->image)){
+            $imagepath = $request->image[0];
+            $imageext = $request->ext[0];
         }else{
             $imagepath = "https://via.placeholder.com/200X250";
+            $imageext = '';
         }
 
         $mp = $request->measurement_preference;
         
-        $array = array('user_id' => Auth::user()->id,'m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)),'measurement_preference' => $request->measurement_preference,'user_meas_image' => $imagepath);
+        $array = array('user_id' => Auth::user()->id,'m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)),'measurement_preference' => $request->measurement_preference,'user_meas_image' => $imagepath,'ext' => $imageext);
         $data = DB::table('user_measurements')->insertGetId($array);
 
         if($data){
@@ -92,7 +94,17 @@ $request->session()->put('measurement_id', $data);
         }else{
             $id = base64_decode($request->id);
 
-       $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'user_meas_image' => $request->user_meas_image,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'wrist_to_underarm' => $request->wrist_to_underarm,'wrist_to_elbow' => $request->wrist_to_elbow,'elbow_to_underarm' => $request->elbow_to_underarm,'wrist_to_top_of_shoulder' => $request->wrist_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+            if(isset($request->image)){
+            $imagepath = $request->image;
+            $imageext = $request->ext;
+
+            $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'user_meas_image' => $imagepath,'ext' => $imageext,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'wrist_to_underarm' => $request->wrist_to_underarm,'wrist_to_elbow' => $request->wrist_to_elbow,'elbow_to_underarm' => $request->elbow_to_underarm,'wrist_to_top_of_shoulder' => $request->wrist_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+
+            }else{
+                $array = array('m_title' => $request->m_title,'m_date' => date('Y-m-d',strtotime($request->m_date)) ,'measurement_preference' => $request->measurement_preference ,'hips' => $request->hips,'waist' => $request->waist,'waist_front' => $request->waist_front,'bust' => $request->bust,'bust_front' => $request->bust_front,'bust_back' => $request->bust_back,'waist_to_underarm' => $request->waist_to_underarm,'armhole_depth' => $request->armhole_depth,'wrist_circumference' => $request->wrist_circumference,'forearm_circumference' => $request->forearm_circumference,'upperarm_circumference' => $request->upperarm_circumference,'shoulder_circumference' => $request->shoulder_circumference,'wrist_to_underarm' => $request->wrist_to_underarm,'wrist_to_elbow' => $request->wrist_to_elbow,'elbow_to_underarm' => $request->elbow_to_underarm,'wrist_to_top_of_shoulder' => $request->wrist_to_top_of_shoulder,'depth_of_neck' => $request->depth_of_neck,'neck_width' => $request->neck_width,'neck_circumference' => $request->neck_circumference,'neck_to_shoulder' => $request->neck_to_shoulder,'shoulder_to_shoulder' => $request->shoulder_to_shoulder);
+            }
+
+       
         }
        
 
@@ -110,31 +122,35 @@ $request->session()->put('measurement_id', $data);
     function upload_measurement_picture(Request $request){
         
         $image = $request->file('file');
-        
-        //print_r($image);
-        //exit;
+        for ($i=0; $i < count($image); $i++) { 
+            $filename = time().'-'.$image[$i]->getClientOriginalName();
+            $ext = $image[$i]->getClientOriginalExtension();
 
-         
-        $filename = time().'-'.$image->getClientOriginalName();
          $s3 = \Storage::disk('s3');
         //exit;
         $filepath = 'knitfit/'.$filename;
 
-        $img = Image::make($request->file('file'));
-        $height = Image::make($request->file('file'))->height();
-        $width = Image::make($request->file('file'))->width();
+        if($ext == 'pdf'){
+            $pu = $s3->put('/'.$filepath, file_get_contents($image[$i]),'public');
+        }else{
+        $ext = 'jpg';
+        $img = Image::make($image[$i]);
+        $height = Image::make($image[$i])->height();
+        $width = Image::make($image[$i])->width();
         $img->orientate();
         $img->resize($width, $height, function ($constraint) {
             //$constraint->aspectRatio();
         });
         $img->encode('jpg');
         $pu = $s3->put('/'.$filepath, $img->__toString(), 'public');
+        }
 
        if($pu){
-         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/'.env('AWS_BUCKET').'/'.$filepath]);
+         return response()->json(['path1' => $filepath, 'path' => 'https://s3.us-east-2.amazonaws.com/knitfitcoall/'.$filepath,'ext' => $ext]);
      }else{
         echo 'error';
      }
+        }
     }
 
 

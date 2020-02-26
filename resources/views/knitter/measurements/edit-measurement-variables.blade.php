@@ -373,14 +373,19 @@
       var m_title = $("#m_title").val();
       var m_date = $("#dropper-default").val();
       var measurement_preference = $("input[name='measurement_preference']:checked").val();
-      var user_meas_image = $("#imageurl").val();
+      var user_meas_image = $("input#image").val();
+      var ext = $("#ext").val();
+
+      //alert(user_meas_image + ' - ' + ext);
+      //return false;
 
       var Data = $("#bodymeasurements").serializeArray();
                  Data.push({name: 'type', value: 'update'});
                  Data.push({name: 'm_title', value: m_title});
                  Data.push({name: 'm_date', value: m_date});
                  Data.push({name: 'measurement_preference', value: measurement_preference});
-                 Data.push({name: 'user_meas_image', value: user_meas_image});
+                 Data.push({name: 'image', value: user_meas_image});
+                 Data.push({name: 'ext', value: ext});
       $.ajax({
           url : '{{url("knitter/update-variables")}}',
           type : 'POST',
