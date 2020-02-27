@@ -21,6 +21,12 @@ Route::get('check',function(){
 		return 'check';
 	});
 
-Route::middleware('auth:api')->group(function(){
+Route::post('login', 'API\Loginapicontroller@login');
+Route::middleware(['auth:api'])->group(function(){
 	
+    Route::post('logout', 'API\Loginapicontroller@logout');
+    Route::post('refresh', 'API\Loginapicontroller@refresh');
+    Route::post('me', 'API\Loginapicontroller@me');
 });
+
+
