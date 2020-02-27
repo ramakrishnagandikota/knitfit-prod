@@ -102,7 +102,7 @@ class Logincontroller extends Controller
                 'first_name' => 'required|alpha|min:2|max:15',
                 'last_name' => 'required|alpha|min:2|max:15',
 	            'username' => 'required|alpha_num|max:25|unique:users',
-		        'email' => 'email|unique:users',
+		        'email' => 'required|email|unique:users',
 		        'password' => 'required|string|min:6|max:16|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
 		        'confirm_password' => 'same:password',
 		        'terms_and_conditions' => 'required'

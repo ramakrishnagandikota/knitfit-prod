@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Project;
 use App\Orders;
 use App\Booking_process;
+use App\UserMeasurements;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -83,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
    function measurements(){
-    return $this->hasMany('App\UserMeasurements');
+    return $this->hasMany(UserMeasurements::class);
    }
 
    function orders(){

@@ -22,11 +22,19 @@ Route::get('check',function(){
 	});
 
 Route::post('login', 'API\Loginapicontroller@login');
+Route::post('register', 'API\Loginapicontroller@register');
+
 Route::middleware(['auth:api'])->group(function(){
 	
     Route::post('logout', 'API\Loginapicontroller@logout');
     Route::post('refresh', 'API\Loginapicontroller@refresh');
     Route::post('me', 'API\Loginapicontroller@me');
+
+    //Route::get('measurements/{id}','API\MeasurementsApiController@show');
+    Route::apiResource('/measurements','API\MeasurementsApiController');
 });
+
+
+
 
 
